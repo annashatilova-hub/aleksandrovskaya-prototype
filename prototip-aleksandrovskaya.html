@@ -570,6 +570,7 @@
       padding: 0;
       background: none;
       box-shadow: none;
+      color: #fff;
     }
 
     .hero-text .section-label {
@@ -583,27 +584,27 @@
       line-height: 1.08;
       letter-spacing: -0.02em;
       margin-bottom: 20px;
-      color: #142228;
+      color: #fff;
       text-transform: uppercase;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
     }
 
     .hero-lead {
       font-size: 17px;
       line-height: 1.6;
       font-weight: 500;
-      color: #1b252b;
+      color: #fff;
       margin-bottom: 16px;
       max-width: 520px;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
     }
 
     .hero-location {
       font-size: 14px;
-      color: #2c3a42;
+      color: #fff;
       margin-bottom: 28px;
       font-weight: 600;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
     }
 
     .hero-actions {
@@ -617,14 +618,15 @@
     }
 
     .hero .btn-outline {
-      color: var(--brand-dark);
-      border-color: var(--brand);
-      background: rgba(255, 255, 255, 0.94);
+      color: #fff;
+      border-color: #fff;
+      background: transparent;
     }
 
     .hero .btn-outline:hover {
-      background: var(--brand);
-      color: var(--white);
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      border-color: #fff;
     }
 
     .hero-bento {
@@ -673,12 +675,14 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #163238;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(43, 107, 107, 0.28);
+      color: #fff;
+      background: rgba(8, 22, 26, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       padding: 8px 12px;
       border-radius: 999px;
-      text-shadow: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     .photo-mark {
@@ -1957,7 +1961,6 @@
     <div class="container">
       <div class="section-label">Услуги</div>
       <h2>Чем заняться на территории</h2>
-      <p class="section-intro">Выберите услугу — описание обновится выше. Фото услуг: слоты Ф21–Ф28 (список в описании прототипа). Сауна (Ф22) уже есть.</p>
 
       <div class="services-stack">
       <div id="service-detail" class="service-feature" aria-live="polite"></div>
@@ -2028,7 +2031,6 @@
     <div class="container">
       <div class="section-label">Галерея</div>
       <h2>Узнайте базу ближе: интерьеры, виды и атмосфера</h2>
-      <p class="section-intro">Такой блок есть в шаблоне Hotel на Tilda. Метки Ф14–Ф20 — какие фото поставить в плитки.</p>
       <div class="gallery-bento">
         <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф14 · нужно</span><span class="gallery-tile-label">территория</span></div>
         <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф15 · нужно</span><span class="gallery-tile-label">озеро</span></div>
