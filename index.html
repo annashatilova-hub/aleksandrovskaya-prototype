@@ -361,6 +361,7 @@
     .booking-bar {
       display: flex;
       align-items: stretch;
+      flex-wrap: wrap;
       gap: 10px;
       background: #3d2914;
       color: #fff;
@@ -396,9 +397,13 @@
       min-width: 140px;
     }
 
+    .booking-field:not(#guests-field) {
+      overflow: hidden;
+    }
+
     #guests-field {
-      flex: 1.7 1 220px;
-      min-width: 196px;
+      flex: 1 0 236px;
+      min-width: 236px;
     }
 
     .booking-field label {
@@ -429,33 +434,39 @@
     }
 
     .booking-guests-btn {
-      height: auto;
+      height: 42px;
+      min-height: 42px;
+      max-height: 42px;
       text-align: left;
       cursor: pointer;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 8px;
+      justify-content: flex-start;
       font-size: 13px;
-      line-height: 1.25;
-      padding: 6px 10px 6px 12px;
-      overflow: visible;
-      white-space: normal;
+      line-height: 42px;
+      padding: 0 40px 0 14px;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
     }
 
     .booking-guests-label {
-      flex: 1 1 auto;
-      min-width: 0;
-      white-space: normal;
-      overflow: visible;
-      overflow-wrap: break-word;
+      display: block;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
     }
 
     .booking-guests-btn::after {
       content: '';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
       width: 16px;
       height: 16px;
-      flex-shrink: 0;
+      pointer-events: none;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Ccircle cx='12' cy='8' r='3.2'/%3E%3Cpath d='M5 19c.8-3.2 3.4-5 7-5s6.2 1.8 7 5'/%3E%3C/svg%3E") center/contain no-repeat;
     }
 
@@ -937,6 +948,11 @@
     }
 
     /* Services */
+    .services-stack {
+      display: flex;
+      flex-direction: column;
+    }
+
     .services-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1062,10 +1078,19 @@
     @media (max-width: 900px) {
       .services-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        order: -1;
+        margin-top: 0;
       }
       .service-feature {
         grid-template-columns: 1fr;
         gap: 20px;
+        order: 2;
+        margin-bottom: 0;
+        margin-top: 8px;
+        padding-bottom: 0;
+        padding-top: 24px;
+        border-bottom: none;
+        border-top: 1px solid #e8e8e8;
       }
       .service-feature-media,
       .service-feature img {
@@ -1574,10 +1599,11 @@
         flex-wrap: wrap;
       }
       .booking-bar-title { min-width: 100%; padding: 4px 4px 2px; }
-      .booking-field { flex: 1 1 calc(50% - 10px); }
+      .booking-field { flex: 1 1 140px; }
       #guests-field {
-        flex: 1 1 100%;
-        min-width: 100%;
+        flex: 1 0 236px;
+        min-width: 236px;
+        width: auto;
       }
       .booking-bar-submit {
         width: 100%;
@@ -1913,6 +1939,7 @@
       <h2>Чем заняться на территории</h2>
       <p class="section-intro">Выберите услугу — описание обновится выше. Фото услуг: слоты Ф21–Ф28 (список в описании прототипа). Сауна (Ф22) уже есть.</p>
 
+      <div class="services-stack">
       <div id="service-detail" class="service-feature" aria-live="polite"></div>
 
       <div class="services-grid" id="services-grid">
@@ -1972,6 +1999,7 @@
             <p>Проведение мероприятий и праздников</p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </section>
