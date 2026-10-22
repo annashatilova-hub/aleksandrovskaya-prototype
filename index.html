@@ -312,7 +312,7 @@
       flex-direction: column;
       align-items: stretch;
       justify-content: flex-start;
-      background: #1a3340;
+      background: #dce4e8;
     }
 
     .hero-bg {
@@ -330,9 +330,9 @@
       inset: 0;
       background: linear-gradient(
         105deg,
-        rgba(8, 22, 26, 0.58) 0%,
-        rgba(8, 22, 26, 0.32) 45%,
-        rgba(8, 22, 26, 0.22) 100%
+        rgba(255, 255, 255, 0.42) 0%,
+        rgba(255, 255, 255, 0.28) 45%,
+        rgba(255, 255, 255, 0.16) 100%
       );
       z-index: 1;
       pointer-events: none;
@@ -391,8 +391,13 @@
 
     .booking-field {
       position: relative;
-      flex: 1 1 160px;
-      min-width: 0;
+      flex: 1 1 170px;
+      min-width: 140px;
+    }
+
+    #guests-field {
+      flex: 1.7 1 220px;
+      min-width: 196px;
     }
 
     .booking-field label {
@@ -405,7 +410,7 @@
     .booking-field input[type="date"],
     .booking-guests-btn {
       width: 100%;
-      height: 42px;
+      min-height: 42px;
       border: none;
       border-radius: 2px;
       background: #fff;
@@ -416,16 +421,33 @@
     }
 
     .booking-field input[type="date"] {
+      height: 42px;
       padding-right: 8px;
+      overflow: hidden;
+      min-width: 0;
     }
 
     .booking-guests-btn {
+      height: auto;
       text-align: left;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
+      font-size: 13px;
+      line-height: 1.25;
+      padding: 6px 10px 6px 12px;
+      overflow: visible;
+      white-space: normal;
+    }
+
+    .booking-guests-label {
+      flex: 1 1 auto;
+      min-width: 0;
+      white-space: normal;
+      overflow: visible;
+      overflow-wrap: break-word;
     }
 
     .booking-guests-btn::after {
@@ -536,7 +558,7 @@
     .hero-visual { min-width: 0; }
 
     .hero-text .section-label {
-      color: rgba(255, 255, 255, 0.75);
+      color: var(--brand);
     }
 
     .hero-text h1 {
@@ -545,21 +567,21 @@
       line-height: 1.08;
       letter-spacing: -0.02em;
       margin-bottom: 20px;
-      color: #fff;
+      color: #1c2f36;
       text-transform: uppercase;
     }
 
     .hero-lead {
       font-size: 17px;
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.88);
+      color: #333333;
       margin-bottom: 16px;
       max-width: 520px;
     }
 
     .hero-location {
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.75);
+      color: #4a5560;
       margin-bottom: 28px;
       font-weight: 500;
     }
@@ -571,13 +593,14 @@
     }
 
     .hero .btn-outline {
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.85);
+      color: var(--brand);
+      border-color: var(--brand);
+      background: rgba(255, 255, 255, 0.62);
     }
 
     .hero .btn-outline:hover {
-      background: #fff;
-      color: var(--brand-dark);
+      background: var(--brand);
+      color: var(--white);
     }
 
     .hero-bento {
@@ -654,7 +677,24 @@
 
     .photo-mark.ready { background: #e8f5e9; color: #1a7f37; border-color: #b7e0bc; }
 
-    .hero .photo-mark { top: auto; bottom: 16px; left: 16px; }
+    .hero-bg-mark {
+      top: 16px;
+      left: 16px;
+      bottom: auto;
+      z-index: 4;
+    }
+
+    .hero-tile .photo-mark,
+    .about-photo .photo-mark,
+    .room-card .photo-mark,
+    .gallery-tile .photo-mark,
+    .news-card-image .photo-mark {
+      top: 8px;
+      left: 8px;
+      bottom: auto;
+      right: auto;
+    }
+
     .about-photo { position: relative; }
     .news-card { position: relative; }
 
@@ -1449,6 +1489,10 @@
       }
       .booking-bar-title { min-width: 100%; padding: 4px 4px 2px; }
       .booking-field { flex: 1 1 calc(50% - 10px); }
+      #guests-field {
+        flex: 1 1 100%;
+        min-width: 100%;
+      }
       .booking-bar-submit {
         width: 100%;
         margin-top: 4px;
@@ -1497,7 +1541,7 @@
   <section class="hero">
     <img class="hero-bg" src="assets/hero-bg.jpg" alt="" aria-hidden="true">
     <div class="hero-overlay" aria-hidden="true"></div>
-    <span class="photo-mark ready">Ф1 · фон главной · есть пример</span>
+    <span class="photo-mark ready hero-bg-mark">Ф1 · фон главной · есть пример</span>
     <div class="container hero-booking-wrap">
       <form class="booking-bar" id="hero-booking-form" action="#booking">
         <div class="booking-bar-title">
@@ -1514,7 +1558,7 @@
         </div>
         <div class="booking-field" id="guests-field">
           <label>Гости</label>
-          <button type="button" class="booking-guests-btn" id="guests-btn" aria-expanded="false">2 взрослых, 0 детей</button>
+          <button type="button" class="booking-guests-btn" id="guests-btn" aria-expanded="false"><span class="booking-guests-label">2 взрослых, 0 детей</span></button>
           <div class="booking-guests-panel" id="guests-panel">
             <div class="booking-guest-row">
               <span>Взрослые</span>
@@ -2282,7 +2326,9 @@
       function renderGuests() {
         adultsEl.textContent = guests.adults;
         childrenEl.textContent = guests.children;
-        guestsBtn.textContent = guestsLabel();
+        const guestsLabelEl = guestsBtn.querySelector('.booking-guests-label');
+        if (guestsLabelEl) guestsLabelEl.textContent = guestsLabel();
+        else guestsBtn.textContent = guestsLabel();
       }
 
       const today = new Date();
