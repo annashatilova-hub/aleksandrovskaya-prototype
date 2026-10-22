@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Структура сайта и описание прототипа — Александровская</title>
+  <style>
+    :root {
+      --brand: #2b6b6b;
+      --brand-dark: #1f5252;
+      --brand-light: #e8f2f2;
+      --cream: #f5f0e8;
+      --text: #333;
+      --muted: #666;
+      --border: #e0e0e0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+      background: #fafafa;
+    }
+    .doc-header {
+      background: var(--brand-dark);
+      color: #fff;
+      padding: 48px 24px;
+    }
+    .doc-header-inner { max-width: 900px; margin: 0 auto; }
+    .doc-header h1 { font-size: 28px; margin-bottom: 8px; color: #fff; }
+    .doc-header p { color: #fff; opacity: 0.9; max-width: 700px; }
+    .doc-header .meta { color: #fff; margin-top: 20px; font-size: 13px; opacity: 0.85; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+    section { margin-bottom: 48px; }
+    h2 {
+      font-size: 22px;
+      color: var(--brand-dark);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--brand-light);
+    }
+    h3 { font-size: 16px; margin: 24px 0 12px; color: var(--brand); }
+    p, li { font-size: 15px; color: var(--text); }
+    p { margin-bottom: 12px; }
+    ul, ol { margin: 0 0 16px 20px; }
+    li { margin-bottom: 6px; }
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 14px;
+      border-radius: 0 6px 6px 0;
+    }
+    .info {
+      background: var(--brand-light);
+      border-left: 4px solid var(--brand);
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 14px;
+      border-radius: 0 6px 6px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: var(--brand-light);
+      color: var(--brand-dark);
+      font-weight: 600;
+    }
+    .status-ready { color: #1a7f37; font-weight: 600; }
+    .status-draft { color: #9a6700; font-weight: 600; }
+    .status-todo { color: #888; }
+    .tree {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--brand);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .btn:hover { background: var(--brand-dark); }
+    .proto-open-box {
+      margin-top: 12px;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .proto-open-box p { margin: 8px 0 0; font-size: 14px; color: var(--text); }
+    .proto-open-box ul,
+    .proto-open-box ol { margin: 8px 0 12px 20px; font-size: 14px; }
+    .proto-open-box li { margin-bottom: 4px; }
+    .proto-open-box code {
+      background: var(--cream);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .proto-open-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .card h4 { font-size: 15px; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: var(--muted); margin: 0; }
+    .card.recommended {
+      border: 2px solid var(--brand);
+      background: var(--brand-light);
+    }
+    .card.recommended h4 { color: var(--brand-dark); }
+    a.doc-link { color: var(--brand); }
+    .tag-rec {
+      display: inline-block;
+      background: var(--brand);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+    @media print {
+      body { background: #fff; }
+      .btn { display: none; }
+      .doc-header { background: var(--brand-dark); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="doc-header">
+    <div class="doc-header-inner">
+      <h1>База отдыха «Александровская»</h1>
+      <p>Структура будущего сайта и пояснение к интерактивному прототипу для согласования</p>
+      <div class="meta">
+        Дата: 21.09.2026 год · Платформа: Tilda (шаблон Hotel) · Бронирование: Бnovo<br>
+        Формат: standalone-документ · прототип — отдельным файлом
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section>
+      <h2>1. Что это за документ</h2>
+      <p>Это описание <strong>структуры сайта</strong> и пояснение к <strong>прототипу</strong> — черновой версии сайта для согласования с заказчиком <em>до</em> сборки на Tilda.</p>
+      <div class="info">
+        <strong>Прототип ≠ финальный сайт.</strong> Это макет логики, разделов и контента. Внешний вид на Tilda будет похож, но может отличаться по деталям (шрифты, отступы, анимации).
+      </div>
+      <p>Вы получаете <strong>два отдельных standalone-файла</strong> — каждый открывается в браузере локально, без установки программ и без интернета.</p>
+      <div class="proto-open-box">
+        <p><strong>Что в письме:</strong></p>
+        <ul>
+          <li><code>OPISANIE-PROTOTIPA.html</code> — <em>этот документ</em>: структура сайта, пояснения, сравнение платформ</li>
+          <li><code>prototip-aleksandrovskaya.html</code> — <em>отдельное вложение</em>: один файл, внутри всё (стили, скрипты, картинки). Папки и доп. файлы не нужны.</li>
+        </ul>
+        <p><strong>Как открыть прототип:</strong></p>
+        <ol>
+          <li>Сохраните файл <code>prototip-aleksandrovskaya.html</code> на компьютер.</li>
+          <li>Дважды щёлкните по нему — откроется в браузере (Chrome, Edge, Яндекс).</li>
+          <li>Листайте страницу или пользуйтесь меню — все разделы на одном экране.</li>
+        </ol>
+        <div class="info" style="margin-top:12px;margin-bottom:0">
+          Прототип — <strong>один самодостаточный HTML-файл</strong> (~70 КБ). Работает без интернета. Сначала можно прочитать описание здесь, затем открыть прототип.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Рекомендуемое решение</h2>
+
+      <h3>Исследование присланных примеров</h3>
+      <p>Для выбора платформы и структуры сайта были изучены сайты, которые вы прислали как ориентир, а также текущая визитка «Александровской».</p>
+      <table>
+        <tr>
+          <th>Сайт</th>
+          <th>Платформа</th>
+          <th>Что понравилось</th>
+          <th>Что берём в проект</th>
+        </tr>
+        <tr>
+          <td><a class="doc-link" href="https://akkala-hotel.ru/" target="_blank" rel="noopener">akkala-hotel.ru</a></td>
+          <td>Tilda</td>
+          <td>Крупные фото, «история» базы, атмосфера, плавная подача контента</td>
+          <td>Hero-блок, эмоциональные тексты, галерея, акцент на природе и отдыхе</td>
+        </tr>
+        <tr>
+          <td><a class="doc-link" href="https://hevaa.ru/" target="_blank" rel="noopener">hevaa.ru</a></td>
+          <td>1С-Битрикс</td>
+          <td>Каталог номеров с ценами, акции, понятная навигация, блок услуг</td>
+          <td>Страница «Проживание», карточки номеров, спецпредложения, кнопка «Забронировать»</td>
+        </tr>
+        <tr>
+          <td><a class="doc-link" href="https://alexandrovskaya.clients.site/" target="_blank" rel="noopener">alexandrovskaya.clients.site</a></td>
+          <td>Яндекс.Бизнес (визитка)</td>
+          <td>Контакты, рейтинг 4.9, несколько фото</td>
+          <td>Контакты и отзывы — переносим; каталога номеров, услуг и бронирования здесь нет</td>
+        </tr>
+      </table>
+      <div class="info">
+        <strong>Вывод:</strong> для «Александровской» нужен сайт, который сочетает <em>атмосферу Аккалы</em> и <em>структуру каталога Hevaa</em>. Оба эффекта достижимы на Tilda без разработки «с нуля» — именно поэтому Tilda выбрана как основной вариант.
+      </div>
+
+      <h3>Тарифы Tilda (с официального сайта)</h3>
+      <p>Актуальные цены — на странице <a class="doc-link" href="https://tilda.cc/ru/pricing/" target="_blank" rel="noopener">tilda.cc/ru/pricing</a> (оплата за год):</p>
+      <table>
+        <tr>
+          <th>Тариф</th>
+          <th>Цена</th>
+          <th>Что включено</th>
+          <th>Для нашего проекта</th>
+        </tr>
+        <tr>
+          <td><strong>Free</strong></td>
+          <td>Бесплатно</td>
+          <td>1 сайт, базовые блоки</td>
+          <td>Не подходит: нет Pro-шаблона Hotel, нет своего домена</td>
+        </tr>
+        <tr>
+          <td><strong>Personal</strong></td>
+          <td><strong>500 ₽/мес</strong> при оплате за год<br><span style="font-size:12px;color:var(--muted)">≈ 6 000 ₽/год</span></td>
+          <td>1 сайт, все блоки, свой домен, Pro-шаблоны</td>
+          <td><strong>Рекомендуем</strong> — достаточно для сайта базы отдыха</td>
+        </tr>
+        <tr>
+          <td><strong>Business</strong></td>
+          <td><strong>1 000 ₽/мес</strong> при оплате за год<br><span style="font-size:12px;color:var(--muted)">≈ 12 000 ₽/год</span></td>
+          <td>5 сайтов, экспорт кода, всё из Personal</td>
+          <td>Нужен только если несколько сайтов или экспорт HTML</td>
+        </tr>
+      </table>
+      <p style="font-size:14px;color:var(--muted)">При оплате помесячно цена выше (например, Business — 1 250 ₽/мес). Домен (~500–1 500 ₽/год) оплачивается отдельно у регистратора.</p>
+
+      <h3>Варианты платформы</h3>
+      <table>
+        <tr>
+          <th>Платформа</th>
+          <th>Плюсы</th>
+          <th>Минусы</th>
+          <th>Ориентир по стоимости</th>
+        </tr>
+        <tr>
+          <td><strong>Tilda</strong><br><em style="font-size:12px;color:var(--brand-dark)">← рекомендуем</em></td>
+          <td>Быстрый запуск, шаблон Hotel, правки фото и текстов без программиста, Бnovo подключается</td>
+          <td>Меньше гибкости, чем у «своего» сайта</td>
+          <td>Personal: 500 ₽/мес (за год) + сборка + домен</td>
+        </tr>
+        <tr>
+          <td><strong>1С-Битрикс</strong></td>
+          <td>Как у hevaa.ru — мощный каталог, сложная логика, масштабирование</td>
+          <td>Нужен разработчик на поддержку, дольше и дороже запуск</td>
+          <td>от ~80 000 ₽ разработка + хостинг/лицензия</td>
+        </tr>
+        <tr>
+          <td><strong>WordPress</strong></td>
+          <td>Много тем для отелей, гибкая CMS, знаком многим подрядчикам</td>
+          <td>Нужны обновления, плагины, настройка безопасности</td>
+          <td>от ~40 000 ₽ сборка + хостинг ~3 000 ₽/год</td>
+        </tr>
+        <tr>
+          <td><strong>Свой сайт (HTML/React и др.)</strong></td>
+          <td>Полный контроль над дизайном и функциями</td>
+          <td>Любая правка — через разработчика; дороже в поддержке</td>
+          <td>от ~100 000 ₽ разработка + хостинг</td>
+        </tr>
+        <tr>
+          <td><strong>Wix / другие конструкторы</strong></td>
+          <td>Простой старт, визуальный редактор</td>
+          <td>Меньше шаблонов под отели; интеграция Бnovo — уточнять отдельно</td>
+          <td>~5 000–15 000 ₽/год</td>
+        </tr>
+      </table>
+      <p>Модуль бронирования <strong>Бnovo</strong> подключается на любой из перечисленных вариантов — после публикации сайта на домене.</p>
+
+      <h3>Параметры рекомендуемого решения</h3>
+      <div class="card-grid">
+        <div class="card recommended">
+          <span class="tag-rec">Рекомендуем</span>
+          <h4>Платформа — Tilda</h4>
+          <p>Тариф Personal — 500 ₽/мес при оплате за год. Шаблон Hotel (Pro). Заказчик сам меняет фото, тексты и акции.</p>
+        </div>
+        <div class="card">
+          <h4>Бронирование</h4>
+          <p>Модуль Бnovo на странице /booking. Устанавливается после публикации сайта.</p>
+        </div>
+        <div class="card">
+          <h4>Сборка под ключ</h4>
+          <p>31 000–65 000 ₽ — в зависимости от объёма контента и доработок. Контент у заказчика частично готов.</p>
+        </div>
+        <div class="card">
+          <h4>Срок сборки</h4>
+          <p>2–3 недели при готовом контенте. Контент у заказчика уже частично есть.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Структура сайта (карта разделов)</h2>
+      <div class="tree">Главная (/)
+├── О нас ▾
+│   ├── Галерея          /gallery
+│   ├── Отзывы           /reviews
+│   └── Новости          /news
+├── Проживание           /rooms
+│   ├── Стандарт №15     /rooms/double-standard-15
+│   ├── Комфорт №24      /rooms/comfort-24
+│   ├── №33 (2 кровати)  /rooms/twin-33
+│   ├── … остальные категории
+├── Спецпредложения      /promo (+ страницы условий акций)
+├── Услуги               /services
+├── Как добраться        /route
+├── Контакты             /contacts
+└── Бронирование         /booking  ← модуль Бnovo</div>
+
+      <h3>Меню сайта</h3>
+      <table>
+        <tr><th>Пункт меню</th><th>Куда ведёт</th></tr>
+        <tr><td>Главная</td><td>/</td></tr>
+        <tr><td>О нас ▾</td><td>Галерея · Отзывы · Новости</td></tr>
+        <tr><td>Проживание</td><td>Каталог номеров</td></tr>
+        <tr><td>Спецпредложения</td><td>Акции и пакеты</td></tr>
+        <tr><td>Услуги</td><td>Баня, сауна, сапы и др.</td></tr>
+        <tr><td>Как добраться</td><td>Маршрут + карта</td></tr>
+        <tr><td>Контакты</td><td>Телефон, адрес, соцсети</td></tr>
+        <tr><td><strong>Забронировать</strong></td><td>/booking (Бnovo)</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>4. Разделы прототипа — что внутри</h2>
+      <table>
+        <tr>
+          <th>Раздел в прототипе</th>
+          <th>Что показывает</th>
+          <th>На Tilda</th>
+          <th>Контент</th>
+        </tr>
+        <tr>
+          <td>Hero (главный экран)</td>
+          <td>Фото, слоган, кнопка «Забронировать»</td>
+          <td>Cover</td>
+          <td class="status-draft">Фото — заглушка</td>
+        </tr>
+        <tr>
+          <td>О нас / УТП</td>
+          <td>4 преимущества базы</td>
+          <td>Features</td>
+          <td class="status-draft">Текст есть</td>
+        </tr>
+        <tr>
+          <td>Проживание</td>
+          <td>Карточки номеров с фото, ценами, тегами</td>
+          <td>Catalog</td>
+          <td class="status-ready">3 номера готовы</td>
+        </tr>
+        <tr>
+          <td>Спецпредложения</td>
+          <td>3 акции + условия по ссылке</td>
+          <td>Features + страницы</td>
+          <td class="status-draft">Черновик</td>
+        </tr>
+        <tr>
+          <td>Услуги</td>
+          <td>Кликабельные карточки → описание сверху</td>
+          <td>Tabs / страницы</td>
+          <td class="status-ready">Сауна готова</td>
+        </tr>
+        <tr>
+          <td>Галерея</td>
+          <td>Сетка фото</td>
+          <td>Gallery</td>
+          <td class="status-todo">Нужны фото</td>
+        </tr>
+        <tr>
+          <td>Отзывы</td>
+          <td>Рейтинг 4.9, 3 отзыва</td>
+          <td>Testimonials</td>
+          <td class="status-ready">Есть</td>
+        </tr>
+        <tr>
+          <td>Новости</td>
+          <td>3 карточки новостей</td>
+          <td>Feed</td>
+          <td class="status-draft">Черновик</td>
+        </tr>
+        <tr>
+          <td>Как добраться</td>
+          <td>Вкладки: авто / транспорт + карта</td>
+          <td>Tabs + Map</td>
+          <td class="status-draft">Уточнить маршрут</td>
+        </tr>
+        <tr>
+          <td>FAQ</td>
+          <td>5 вопросов</td>
+          <td>FAQ</td>
+          <td class="status-draft">Черновик</td>
+        </tr>
+        <tr>
+          <td>Контакты</td>
+          <td>Телефон, адрес базы, юр. адрес, банк, р/с, соцсети, карта</td>
+          <td>Contact + Map</td>
+          <td class="status-ready">Частично</td>
+        </tr>
+        <tr>
+          <td>Бронирование</td>
+          <td>Заглушка под модуль Бnovo</td>
+          <td>T123 HTML</td>
+          <td class="status-todo">После публикации</td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>5. Готовый контент (уже в прототипе)</h2>
+      <h3>Номера</h3>
+      <table>
+        <tr><th>Номер</th><th>Площадь</th><th>Особенности</th><th>Цена в прототипе</th></tr>
+        <tr><td>Стандарт №15</td><td>23 м²</td><td>Двуспальная кровать, общая кухня</td><td>от 2 900 ₽</td></tr>
+        <tr><td>Комфорт №24</td><td>28 м²</td><td>Терраса, Smart TV, встроенная кухня</td><td>от 3 500 ₽</td></tr>
+        <tr><td>№33</td><td>25 м²</td><td>2 полутораспальные кровати, вид на озеро</td><td>от 2 900 ₽</td></tr>
+      </table>
+      <h3>Услуги</h3>
+      <p><strong>Сауна с джакузи</strong> — фото и прайс: 3 000 ₽ / 2 ч, далее 1 200 ₽/час (январь–апрель 2026).</p>
+      <h3>Контакты и соцсети</h3>
+      <ul>
+        <li>Адрес базы: д. Мамонтовка, ул. Компрессорная, 28</li>
+        <li>VK: vk.com/ohota_rybalka_aleksandrovskaya</li>
+        <li>Telegram: t.me/+79697152763</li>
+        <li>WhatsApp: +7 (969) 715-27-63</li>
+      </ul>
+      <h3>Реквизиты для интернет-эквайринга (на основном сайте)</h3>
+      <p>По требованию техспециалиста эквайринга на сайте должны быть юридический адрес, банк обслуживания и расчётный счёт. В прототипе — блок в «Контактах» и дубль в подвале.</p>
+      <table>
+        <tr><th>Поле</th><th>Значение</th></tr>
+        <tr><td>Наименование организации</td><td>АО НПО «Компрессор»</td></tr>
+        <tr><td>ОГРН</td><td>1097847037804</td></tr>
+        <tr><td>ИНН</td><td>7802461504</td></tr>
+        <tr><td>Юридический адрес</td><td>195277, г. Санкт-Петербург, проспект Большой Сампсониевский, д. 64 литера А</td></tr>
+        <tr><td>Наименование банка</td><td>Филиал «Санкт-Петербургский» АО «АЛЬФА-БАНК»</td></tr>
+        <tr><td>БИК банка</td><td>044030786</td></tr>
+        <tr><td>Расчётный счёт</td><td>40702810832000026271</td></tr>
+      </table>
+      <div class="note">Уточнить: основной телефон для сайта (+7 999 021-50-60 или +7 969 715-27-63). ИНН / КПП для эквайринга в комментарии не прислали — при необходимости добавить.</div>
+    </section>
+
+    <section>
+      <h2>6. Интерактивные элементы прототипа</h2>
+      <table>
+        <tr><th>Элемент</th><th>Как работает в прототипе</th><th>На Tilda</th></tr>
+        <tr>
+          <td>Меню «О нас ▾»</td>
+          <td>Клик → выпадающий список</td>
+          <td>Вложенные пункты меню</td>
+        </tr>
+        <tr>
+          <td>Услуги</td>
+          <td>Клик по карточке → меняется описание и фото сверху</td>
+          <td>Блок Tabs или отдельные страницы</td>
+        </tr>
+        <tr>
+          <td>Спецпредложения</td>
+          <td>«Выбрать номер» → каталог; «Условия акции» → текст условий ниже</td>
+          <td>Отдельные страницы /promo/…</td>
+        </tr>
+        <tr>
+          <td>Как добраться</td>
+          <td>Вкладки «На автомобиле» / «На транспорте»</td>
+          <td>Блок Tabs</td>
+        </tr>
+        <tr>
+          <td>Забронировать</td>
+          <td>Ведёт к заглушке Бnovo</td>
+          <td>Страница /booking с iframe</td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>7. Фирменный стиль</h2>
+      <table>
+        <tr><th>Элемент</th><th>Значение</th></tr>
+        <tr><td>Основной цвет</td><td>#2B6B6B (из логотипа)</td></tr>
+        <tr><td>Фон</td><td>Белый + кремовый #F5F0E8 для чередования блоков</td></tr>
+        <tr><td>Шрифт</td><td>Montserrat (или аналог на Tilda)</td></tr>
+        <tr><td>Логотип</td><td>Файл logo.png — в шапке и подвале</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>8. Что нужно от заказчика для финальной сборки</h2>
+      <ol>
+        <li><strong>Фото</strong> по слотам Ф1–Ф31 — таблица ниже. В прототипе те же коды на жёлтых/зелёных метках.</li>
+        <li><strong>Тексты акций:</strong> условия раннего бронирования, пакет «Баня + сауна», День рождения.</li>
+        <li><strong>Оставшиеся номера:</strong> одноместный, двухкомнатный, семейные апартаменты — по шаблону №15.</li>
+        <li><strong>Маршрут:</strong> точный текст для авто и общественного транспорта.</li>
+        <li><strong>Домен:</strong> желаемый адрес сайта (например aleksandrovskaya.ru).</li>
+        <li><strong>Бnovo:</strong> после публикации — установка модуля на /booking.</li>
+      </ol>
+
+      <h3>8.1. Список фото по прототипу (метки Ф1…)</h3>
+      <p>Откройте прототип — в углах блоков стоят коды <strong>Ф1, Ф2…</strong>. Зелёная метка «есть» — файл уже подобран. Жёлтая «нужно» — пришлите оригинал.</p>
+      <table>
+        <tr>
+          <th>Код</th>
+          <th>Где в прототипе</th>
+          <th>Что снять / прислать</th>
+          <th>Размер</th>
+          <th>Статус</th>
+        </tr>
+        <tr>
+          <td><strong>Ф1</strong></td>
+          <td>Фон главного экрана (hero)</td>
+          <td>Атмосфера базы: озеро, вечер/день, гирлянды, вид с территории. Только горизонтальный кадр</td>
+          <td>1920 × 1080 или шире</td>
+          <td class="status-ready">Есть пример</td>
+        </tr>
+        <tr>
+          <td><strong>Ф2</strong></td>
+          <td>Большая плитка справа: «территория и озеро»</td>
+          <td>Пирс и озеро (дневной кадр)</td>
+          <td>1600 × 1200 или вертикаль 1200 × 1800</td>
+          <td class="status-ready">Есть пример</td>
+        </tr>
+        <tr>
+          <td><strong>Ф3</strong></td>
+          <td>Плитка «номера» на главной</td>
+          <td>Интерьер типичного номера</td>
+          <td>1200 × 800</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф4</strong></td>
+          <td>Плитка «баня и сауна» на главной</td>
+          <td>Баня или сауна, атмосфера</td>
+          <td>1200 × 800</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф5</strong></td>
+          <td>Блок «О нас», 1-е фото</td>
+          <td>Озеро / территория</td>
+          <td>1600 × 1060</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф6</strong></td>
+          <td>Блок «О нас», 2-е фото</td>
+          <td>Номер, уют</td>
+          <td>1600 × 1060</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф7</strong></td>
+          <td>Блок «О нас», 3-е фото</td>
+          <td>Баня / сауна / релакс</td>
+          <td>1600 × 1060</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф8</strong></td>
+          <td>Карточка «Одноместный номер»</td>
+          <td>Общий вид номера</td>
+          <td>1600 × 1060</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф9</strong></td>
+          <td>Карточка «Стандарт №15»</td>
+          <td>Фото номера</td>
+          <td>1600 × 1060</td>
+          <td class="status-ready">Есть</td>
+        </tr>
+        <tr>
+          <td><strong>Ф10</strong></td>
+          <td>Карточка «Комфорт №24»</td>
+          <td>Фото номера</td>
+          <td>1600 × 1060</td>
+          <td class="status-ready">Есть</td>
+        </tr>
+        <tr>
+          <td><strong>Ф11</strong></td>
+          <td>Карточка «№33»</td>
+          <td>Фото номера</td>
+          <td>1600 × 1060</td>
+          <td class="status-ready">Есть</td>
+        </tr>
+        <tr>
+          <td><strong>Ф12</strong></td>
+          <td>Карточка «Двухкомнатный»</td>
+          <td>Общий вид / две комнаты</td>
+          <td>1600 × 1060</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф13</strong></td>
+          <td>Карточка «Семейные апартаменты»</td>
+          <td>Общий вид апартаментов</td>
+          <td>1600 × 1060</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф14</strong></td>
+          <td>Галерея: территория</td>
+          <td>Здание, двор, дорожки</td>
+          <td>1600–2000 px по длинной стороне</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф15</strong></td>
+          <td>Галерея: озеро</td>
+          <td>Вид на воду, берег</td>
+          <td>1600–2000 px</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф16</strong></td>
+          <td>Галерея: номера</td>
+          <td>Номер крупно</td>
+          <td>1600–2000 px</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф17</strong></td>
+          <td>Галерея: интерьер (высокая плитка)</td>
+          <td>Интерьер, атмосфера внутри</td>
+          <td>1200 × 1800 или 1600 × 1200</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф18</strong></td>
+          <td>Галерея: баня и сауна</td>
+          <td>Парная / зона отдыха</td>
+          <td>1600–2000 px</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф19</strong></td>
+          <td>Галерея: сап-борды</td>
+          <td>Сап, лодки, вода</td>
+          <td>1600–2000 px</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф20</strong></td>
+          <td>Галерея: отдых на природе</td>
+          <td>Лес, мангал, гости на территории</td>
+          <td>1600–2000 px</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф21</strong></td>
+          <td>Услуги: русская баня</td>
+          <td>Баня, парная</td>
+          <td>1600 × 1060</td>
+          <td class="status-todo">Нужно</td>
+        </tr>
+        <tr>
+          <td><strong>Ф22</strong></td>
+          <td>Услуги: сауна с джакузи</td>
+          <td>Сауна</td>
+          <td>1600 × 1060</td>
+          <td class="status-ready">Есть</td>
+        </tr>
+        <tr>
+          <td><strong>Ф23–Ф28</strong></td>
+          <td>Услуги: сапы, бильярд, волейбол, площадка, мангал, банкетный зал</td>
+          <td>По одному кадру на услугу (можно позже)</td>
+          <td>1200 × 800</td>
+          <td class="status-draft">По желанию</td>
+        </tr>
+        <tr>
+          <td><strong>Ф29–Ф31</strong></td>
+          <td>Карточки новостей</td>
+          <td>Обложка к новости, если раздел оставляем</td>
+          <td>1200 × 800</td>
+          <td class="status-draft">По желанию</td>
+        </tr>
+        <tr>
+          <td><strong>Л1</strong></td>
+          <td>Шапка и подвал</td>
+          <td>Логотип</td>
+          <td>PNG, 400–800 px</td>
+          <td class="status-ready">Есть</td>
+        </tr>
+      </table>
+      <div class="info">
+        Дополнительно на Tilda (не на главной прототипа): для <strong>каждой категории номера</strong> ещё 3–8 фото в галерею страницы; в раздел «Галерея» — всего 15–30 снимков (Ф14–Ф20 можно расширить сериями).
+      </div>
+
+      <h3>8.2. Какое фото считается качественным</h3>
+      <p>Для сайта важны <strong>пиксели</strong> (ширина × высота), а не dpi из печати. Слишком маленькое фото на большом блоке выглядит мыльным. Современный смартфон обычно снимает 3000–4000 px — этого достаточно, <strong>если не сжимать файл в WhatsApp / Telegram</strong>.</p>
+      <table>
+        <tr><th>Оценка</th><th>Длинная сторона</th><th>Для сайта</th></tr>
+        <tr><td>Слабое</td><td>меньше 1000 px</td><td>Не ставить на блоки</td></tr>
+        <tr><td>Среднее</td><td>1200–1600 px</td><td>Карточки номеров, превью</td></tr>
+        <tr><td>Хорошее</td><td>1920–2400 px</td><td>Главный экран, галерея</td></tr>
+        <tr><td>Избыток</td><td>4000 px и файл больше 8 МБ</td><td>Можно чуть уменьшить перед загрузкой</td></tr>
+      </table>
+      <p><strong>Фон главной (Ф1) — только горизонтальный кадр.</strong> Вертикальное фото на широкий блок обрежется (пол, кусок неба).</p>
+      <ul>
+        <li>Формат: JPG для фото (вес ориентир 200 КБ – 2 МБ), PNG — только логотип.</li>
+        <li>Глазами: резкость, ровный горизонт, нормальный свет, один сюжет на кадр.</li>
+        <li>Не подходит: скрин из соцсети, 800×600, сжатая пересылка из мессенджера.</li>
+        <li>Как передать: оригиналы файлами, папки <code>hero</code>, <code>номера</code>, <code>галерея</code>, <code>баня</code>, <code>территория</code>. В имени файла укажите код: <code>F1-hero.jpg</code>, <code>F8-odnomestny.jpg</code>.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>9. Порядок работ после согласования</h2>
+      <table>
+        <tr><th>Этап</th><th>Действие</th><th>Срок</th></tr>
+        <tr><td>1</td><td>Согласование структуры (этот документ + прототип)</td><td>1–2 дня</td></tr>
+        <tr><td>2</td><td>Доработка контента заказчиком</td><td>3–7 дней</td></tr>
+        <tr><td>3</td><td>Сборка на Tilda (шаблон Hotel, цвета, наполнение)</td><td>5–10 дней</td></tr>
+        <tr><td>4</td><td>Подключение домена, проверка на телефоне</td><td>1–2 дня</td></tr>
+        <tr><td>5</td><td>Установка Бnovo, обучение заказчика</td><td>1–3 дня</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>10. Согласование</h2>
+      <p>Просим подтвердить или скорректировать:</p>
+      <ul>
+        <li>Структуру разделов (раздел 3)</li>
+        <li>Наличие блоков: Галерея, Новости, Спецпредложения</li>
+        <li>Логику кнопок на акциях («Выбрать номер» + «Условия»)</li>
+        <li>Выбор платформы: Tilda (рекомендуем) или другой вариант</li>
+      </ul>
+      <div class="note">
+        Комментарии можно прислать списком правок к разделам. После согласования структуры — переходим к финальной сборке на Tilda.
+      </div>
+      <div class="note">
+        Интерактивный прототип — один файл <code>prototip-aleksandrovskaya.html</code> (вложение к письму, всё внутри).
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    База отдыха «Александровская» · Описание прототипа · 21.09.2026 год<br>
+    Standalone: OPISANIE-PROTOTIPA.html (описание) · prototip-aleksandrovskaya.html (прототип, отдельно)
+  </footer>
+
+</body>
+</html>

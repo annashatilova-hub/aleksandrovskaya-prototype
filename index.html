@@ -1,0 +1,2436 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>База отдыха «Александровская» — прототип</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand: #2b6b6b;
+      --brand-dark: #1f5252;
+      --brand-light: #e8f2f2;
+      --cream: #f5f0e8;
+      --text: #333333;
+      --text-muted: #666666;
+      --white: #ffffff;
+      --max-width: 1200px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--white);
+    }
+
+    .prototype-banner {
+      background: #fff3cd;
+      color: #856404;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      border-bottom: 1px solid #ffeeba;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      gap: 24px;
+    }
+
+    .logo img { height: 64px; width: auto; }
+
+    nav {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--brand); }
+
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown-toggle {
+      color: var(--text);
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0;
+    }
+
+    .nav-dropdown-toggle:hover { color: var(--brand); }
+
+    .nav-dropdown.open .nav-dropdown-toggle { color: var(--brand); }
+
+    .nav-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      background: var(--white);
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      padding: 8px 0;
+      margin-top: 4px;
+      z-index: 200;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+    }
+
+    .nav-dropdown.open .nav-dropdown-menu,
+    .nav-dropdown:hover .nav-dropdown-menu {
+      display: block;
+    }
+
+    .nav-dropdown-menu a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-dropdown-menu a:hover {
+      background: var(--brand-light);
+    }
+
+    .gallery-bento {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1.15fr 1.25fr;
+      grid-template-rows: 200px 200px;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .gallery-tile {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #c5dede 0%, #8fb8b8 100%);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(43, 107, 107, 0.2);
+    }
+
+    .gallery-tile.tall { grid-row: span 2; }
+
+    .gallery-tile-label {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+    }
+
+    .gallery-tile-label::before {
+      content: '• ';
+      opacity: 0.85;
+    }
+
+    .gallery-note {
+      border-radius: 12px;
+      border: 1px solid #e8e8e8;
+      background: #fff;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .gallery-note h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .gallery-note p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-bento {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-tile.tall { grid-row: span 1; min-height: 180px; }
+      .gallery-tile { min-height: 140px; }
+      .gallery-note { grid-column: span 2; }
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .news-card {
+      background: var(--white);
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    section.alt .news-card { background: var(--white); }
+
+    .news-card-image {
+      position: relative;
+      height: 160px;
+      background: var(--brand-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brand);
+      font-size: 13px;
+      border-bottom: 1px dashed var(--brand);
+    }
+
+    .news-card-body { padding: 20px; }
+
+    .news-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .news-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .news-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .news-card a {
+      font-size: 13px;
+      color: var(--brand);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .news-card a:hover { text-decoration: underline; }
+
+    .btn {
+      display: inline-block;
+      background: var(--brand);
+      color: var(--white);
+      padding: 12px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: var(--brand-dark); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--brand);
+      border: 2px solid var(--brand);
+    }
+
+    .btn-outline:hover {
+      background: var(--brand);
+      color: var(--white);
+    }
+
+    /* Hero — фото на весь блок, плитки справа не обрезаются */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 56px 24px 28px;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      background: #1a3340;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(8, 22, 26, 0.58) 0%,
+        rgba(8, 22, 26, 0.32) 45%,
+        rgba(8, 22, 26, 0.22) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 28px;
+    }
+
+    .hero-booking-wrap {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+    }
+
+    .booking-bar {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      background: #3d2914;
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 4px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .booking-bar-title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 168px;
+      padding: 0 8px 0 6px;
+      flex-shrink: 0;
+    }
+
+    .booking-bar-title strong {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .booking-bar-title span {
+      font-size: 11px;
+      opacity: 0.78;
+      margin-top: 2px;
+    }
+
+    .booking-field {
+      position: relative;
+      flex: 1 1 160px;
+      min-width: 0;
+    }
+
+    .booking-field label {
+      display: block;
+      font-size: 11px;
+      opacity: 0.8;
+      margin-bottom: 4px;
+    }
+
+    .booking-field input[type="date"],
+    .booking-guests-btn {
+      width: 100%;
+      height: 42px;
+      border: none;
+      border-radius: 2px;
+      background: #fff;
+      color: #222;
+      font-family: inherit;
+      font-size: 14px;
+      padding: 0 12px 0 14px;
+    }
+
+    .booking-field input[type="date"] {
+      padding-right: 8px;
+    }
+
+    .booking-guests-btn {
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .booking-guests-btn::after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Ccircle cx='12' cy='8' r='3.2'/%3E%3Cpath d='M5 19c.8-3.2 3.4-5 7-5s6.2 1.8 7 5'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+
+    .booking-bar-submit {
+      align-self: flex-end;
+      height: 42px;
+      margin-top: 17px;
+      padding: 0 22px;
+      border: none;
+      border-radius: 2px;
+      background: #1a120c;
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .booking-bar-submit:hover { background: #000; }
+
+    .booking-guests-panel {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      min-width: 220px;
+      background: #fff;
+      color: var(--text);
+      border-radius: 6px;
+      padding: 14px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+      z-index: 5;
+    }
+
+    .booking-guests-panel.open { display: block; }
+
+    .booking-guest-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .booking-guest-row:last-child { margin-bottom: 0; }
+
+    .booking-stepper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .booking-stepper button {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #ddd;
+      background: #f7f7f7;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .booking-stepper span { min-width: 16px; text-align: center; font-weight: 600; }
+
+    .booking-note {
+      font-size: 13px;
+      opacity: 0.85;
+      margin: 12px 0 0;
+    }
+
+    .booking-results {
+      display: grid;
+      gap: 12px;
+      max-width: 720px;
+      margin: 28px auto 0;
+      text-align: left;
+    }
+
+    .booking-result {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 16px 18px;
+      color: #fff;
+    }
+
+    .booking-result strong { display: block; margin-bottom: 4px; }
+    .booking-result span { font-size: 13px; opacity: 0.85; }
+    .booking-result em { font-style: normal; font-weight: 700; white-space: nowrap; }
+
+    .hero-text,
+    .hero-visual { min-width: 0; }
+
+    .hero-text .section-label {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-text h1 {
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .hero-lead {
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.88);
+      margin-bottom: 16px;
+      max-width: 520px;
+    }
+
+    .hero-location {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 28px;
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero .btn-outline {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .hero .btn-outline:hover {
+      background: #fff;
+      color: var(--brand-dark);
+    }
+
+    .hero-bento {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      grid-template-rows: 160px 160px;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .hero-tile {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #8fb8b8 0%, #2b6b6b 100%);
+    }
+
+    .hero-tile.main {
+      grid-row: span 2;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.28)),
+        url('assets/hero-pier.jpg') center/cover no-repeat;
+    }
+
+    .hero-tile-label {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+    }
+
+    .hero-tile-label::before { content: '• '; opacity: 0.85; }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .hero-tag {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fff;
+      background: rgba(8, 22, 26, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 8px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    .photo-mark {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 4;
+      background: #fff3cd;
+      color: #7a5b00;
+      border: 1px solid #e6d089;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      line-height: 1.2;
+      pointer-events: none;
+    }
+
+    .photo-mark.ready { background: #e8f5e9; color: #1a7f37; border-color: #b7e0bc; }
+
+    .hero .photo-mark { top: 16px; left: 16px; }
+    .about-photo { position: relative; }
+    .news-card { position: relative; }
+
+    /* Sections */
+    section { padding: 80px 0; }
+
+    section.alt { background: var(--cream); }
+
+    .section-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--brand);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .section-intro {
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+
+    /* About — стиль Hotel (Tilda) */
+    .about-head {
+      margin-bottom: 40px;
+    }
+
+    .about-head h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      max-width: 720px;
+      margin-bottom: 0;
+    }
+
+    .about-showcase {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 0;
+    }
+
+    .about-photo {
+      border-radius: 12px;
+      min-height: 320px;
+      background: linear-gradient(145deg, #c5dede 0%, #8fb8b8 100%);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .about-photo.lake {
+      background:
+        linear-gradient(rgba(31, 82, 82, 0.1), rgba(31, 82, 82, 0.25)),
+        url('https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=600&q=80') center/cover no-repeat;
+    }
+
+    .about-photo.rooms {
+      background:
+        linear-gradient(rgba(31, 82, 82, 0.1), rgba(31, 82, 82, 0.25)),
+        url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80') center/cover no-repeat;
+    }
+
+    .about-photo.sauna {
+      background:
+        linear-gradient(rgba(31, 82, 82, 0.1), rgba(31, 82, 82, 0.25)),
+        url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80') center/cover no-repeat;
+    }
+
+    .about-text-card {
+      border-radius: 12px;
+      border: 1px solid #e8e8e8;
+      background: var(--white);
+      padding: 24px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .about-text-card h3 {
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .about-text-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .about-showcase {
+        grid-template-columns: 1fr 1fr;
+      }
+      .about-photo,
+      .about-text-card { min-height: 240px; }
+    }
+
+    @media (max-width: 560px) {
+      .about-showcase { grid-template-columns: 1fr; }
+    }
+
+    /* Rooms */
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-top: 8px;
+    }
+
+    .room-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e8e8e8;
+      transition: transform 0.2s;
+    }
+
+    .room-card:hover { transform: translateY(-4px); }
+
+    .room-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .room-card-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 24px;
+    }
+
+    .room-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .room-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .room-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .room-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--brand);
+      margin-top: auto;
+      margin-bottom: 16px;
+    }
+
+    .room-price span {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .room-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .room-tag {
+      font-size: 12px;
+      background: var(--brand-light);
+      color: var(--brand-dark);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .room-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #eee;
+    }
+
+    .tilda-hint {
+      background: var(--brand-light);
+      border-left: 4px solid var(--brand);
+      padding: 16px 20px;
+      margin-top: 32px;
+      font-size: 13px;
+      color: var(--brand-dark);
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .service-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 24px;
+      background: var(--white);
+      border-radius: 8px;
+      border: 1px solid #e8e8e8;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .service-item:hover {
+      border-color: var(--brand);
+    }
+
+    .service-item.active {
+      border-color: var(--brand);
+      background: var(--brand-light);
+    }
+
+    section.alt .service-item { border-color: #e0d8cc; }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      background: var(--brand);
+      color: var(--white);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .service-item h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .service-item p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .service-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .service-feature img {
+      width: 100%;
+      min-height: 280px;
+      aspect-ratio: 5 / 3;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      background: var(--brand-light);
+    }
+
+    .service-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brand);
+      margin: 16px 0 8px;
+    }
+
+    .service-price-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .service-price-list {
+      list-style: none;
+      margin: 12px 0;
+    }
+
+    .service-price-list li {
+      font-size: 15px;
+      padding: 6px 0;
+      color: var(--text);
+    }
+
+    /* Promotions */
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .promo-card {
+      background: var(--white);
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 28px;
+      border-top: 4px solid var(--brand);
+    }
+
+    section.alt .promo-card { background: var(--white); }
+
+    .promo-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--brand);
+      margin-bottom: 12px;
+    }
+
+    .promo-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .promo-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .promo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .promo-card .btn {
+      font-size: 13px;
+      padding: 10px 20px;
+    }
+
+    .promo-link {
+      font-size: 13px;
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 0;
+    }
+
+    .promo-link:hover { text-decoration: underline; }
+
+    /* Promo detail page */
+    .promo-page {
+      padding: 48px 0 80px;
+    }
+
+    .promo-page-back {
+      display: inline-block;
+      margin-bottom: 24px;
+      color: var(--brand);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .promo-page-back:hover { text-decoration: underline; }
+
+    .promo-conditions {
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 28px;
+      margin: 24px 0 32px;
+    }
+
+    .promo-conditions h3 {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .promo-conditions ul {
+      margin-left: 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .promo-conditions li { margin-bottom: 8px; }
+
+    .promo-placeholder-note {
+      background: #fff3cd;
+      color: #856404;
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    .promo-detail-block {
+      margin-top: 56px;
+      padding-top: 48px;
+      border-top: 2px solid var(--brand-light);
+      scroll-margin-top: 90px;
+    }
+
+    .promo-detail-block h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .promo-detail-block .lead {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* Reviews */
+    .rating-block {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .rating-score {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--brand);
+      line-height: 1;
+    }
+
+    .rating-stars { color: #f5a623; font-size: 20px; }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 8px;
+    }
+    }
+
+    .review-card {
+      background: var(--white);
+      padding: 28px;
+      border-radius: 8px;
+      border: 1px solid #e8e8e8;
+    }
+
+    .review-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .review-author {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .review-date {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* FAQ */
+    .faq-list { max-width: 720px; }
+
+    .faq-item {
+      border-bottom: 1px solid #e8e8e8;
+      padding: 20px 0;
+    }
+
+    .faq-item h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--brand-dark);
+    }
+
+    .faq-item p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Route */
+    .route-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .route-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .route-tab {
+      padding: 10px 20px;
+      border: 1px solid var(--brand);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--brand);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .route-tab.active {
+      background: var(--brand);
+      color: var(--white);
+    }
+
+    .route-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .map-placeholder {
+      background: var(--brand-light);
+      border-radius: 8px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brand);
+      font-size: 14px;
+      border: 2px dashed var(--brand);
+      text-align: center;
+      padding: 24px;
+    }
+
+    /* Booking */
+    .booking-block {
+      background: var(--brand);
+      color: var(--white);
+      text-align: center;
+      padding: 80px 24px;
+    }
+
+    .booking-block h2 { color: var(--white); margin-bottom: 16px; }
+
+    .booking-block p {
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .booking-block .btn {
+      background: var(--white);
+      color: var(--brand);
+    }
+
+    .booking-block .btn:hover {
+      background: var(--cream);
+    }
+
+    .booking-mock {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 40px;
+      max-width: 600px;
+      margin: 40px auto 0;
+      color: var(--text-muted);
+      font-size: 14px;
+      border: 2px dashed rgba(255,255,255,0.4);
+    }
+
+    /* Contacts */
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    .contact-item {
+      margin-bottom: 20px;
+    }
+
+    .contact-item strong {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--brand);
+      margin-bottom: 4px;
+    }
+
+    .contact-item a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover { color: var(--brand); }
+
+    .requisites {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    .requisites h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .requisites-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .requisites-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .requisites-table th,
+    .requisites-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 8px 12px 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .requisites-table th {
+      width: 180px;
+      font-weight: 600;
+      color: var(--brand-dark);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .social-link {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid var(--brand);
+      border-radius: 4px;
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .social-link:hover {
+      background: var(--brand);
+      color: var(--white);
+    }
+
+    .footer-social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      color: var(--brand);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .footer-social a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer — светлый, как на текущей визитке */
+    footer {
+      background: #eef1f4;
+      color: #5a6570;
+      padding: 40px 24px 28px;
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(180px, 0.7fr) 1.4fr;
+      gap: 40px 64px;
+      align-items: start;
+    }
+
+    .footer-logo img {
+      height: 52px;
+      filter: none;
+      opacity: 1;
+    }
+
+    .footer-brand-name {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #3d4a54;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 14px;
+    }
+
+    .footer-legal-links a {
+      color: #2c3a44;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .footer-legal-links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-legal-text {
+      font-size: 12px;
+      line-height: 1.65;
+      color: #8a949c;
+    }
+
+    .footer-copy {
+      max-width: var(--max-width);
+      margin: 24px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid #dde3e8;
+      text-align: left;
+      font-size: 11px;
+      color: #9aa3aa;
+    }
+
+    /* Mobile menu */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--brand);
+    }
+
+    @media (max-width: 768px) {
+      nav { display: none; }
+      nav.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 24px;
+        border-bottom: 1px solid #e8e8e8;
+        gap: 16px;
+      }
+      .nav-dropdown-menu {
+        position: static;
+        display: block;
+        border: none;
+        padding: 0 0 0 12px;
+        margin-top: 8px;
+      }
+      .nav-dropdown-menu a {
+        padding: 8px 0;
+        text-transform: none;
+      }
+      .menu-toggle { display: block; }
+      .header-inner { position: relative; }
+      .route-grid, .contacts-grid, .service-feature { grid-template-columns: 1fr; }
+      section { padding: 56px 0; }
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .hero-bento { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px; }
+      .hero-text h1 { font-size: clamp(28px, 8vw, 40px); }
+      .booking-bar {
+        flex-wrap: wrap;
+      }
+      .booking-bar-title { min-width: 100%; padding: 4px 4px 2px; }
+      .booking-field { flex: 1 1 calc(50% - 10px); }
+      .booking-bar-submit {
+        width: 100%;
+        margin-top: 4px;
+      }
+      .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-bento { grid-template-rows: 180px 180px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="prototype-banner">
+    Прототип для согласования. Жёлтые метки Ф1, Ф2… — слоты фото (список в файле «Описание прототипа»). Зелёные метки — фото уже есть.
+  </div>
+
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <img src="assets/logo.png" alt="База отдыха Александровская">
+      </a>
+      <button class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="Меню">☰</button>
+      <nav>
+        <a href="#">Главная</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">О нас ▾</button>
+          <div class="nav-dropdown-menu">
+            <a href="#gallery">Галерея</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="#news">Новости</a>
+          </div>
+        </div>
+        <a href="#rooms">Проживание</a>
+        <a href="#promo">Спецпредложения</a>
+        <a href="#services">Услуги</a>
+        <a href="#route">Как добраться</a>
+        <a href="#contacts">Контакты</a>
+        <a href="#booking" class="btn">Забронировать</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img class="hero-bg" src="assets/hero-bg.jpg" alt="" aria-hidden="true">
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <span class="photo-mark ready">Ф1 · фон главной · есть пример</span>
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="section-label">База отдыха «Александровская»</div>
+        <h1>Отдых на Карельском перешейке</h1>
+        <p class="hero-lead">Уютные номера, русская баня и сауна, сап-борды и лодки. Тишина, комфорт и душевная атмосфера у озера.</p>
+        <p class="hero-location">д. Мамонтовка, Выборгский р-н · ~85 км от Санкт-Петербурга</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn">Забронировать номер</a>
+          <a href="#rooms" class="btn btn-outline">Смотреть номера</a>
+        </div>
+        <div class="hero-tags">
+          <span class="hero-tag">Озеро</span>
+          <span class="hero-tag">Баня и сауна</span>
+          <span class="hero-tag">С животными</span>
+          <span class="hero-tag">Парковка</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-bento">
+          <div class="hero-tile main"><span class="photo-mark ready">Ф2 · есть пример</span><span class="hero-tile-label">территория и озеро</span></div>
+          <div class="hero-tile"><span class="photo-mark">Ф3 · нужно</span><span class="hero-tile-label">номера</span></div>
+          <div class="hero-tile"><span class="photo-mark">Ф4 · нужно</span><span class="hero-tile-label">баня и сауна</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="container hero-booking-wrap">
+      <form class="booking-bar" id="hero-booking-form" action="#booking">
+        <div class="booking-bar-title">
+          <strong>Бронирование номеров</strong>
+          <span>Гарантированное заселение</span>
+        </div>
+        <div class="booking-field">
+          <label for="checkin">Заезд</label>
+          <input type="date" id="checkin" name="checkin" required>
+        </div>
+        <div class="booking-field">
+          <label for="checkout">Выезд</label>
+          <input type="date" id="checkout" name="checkout" required>
+        </div>
+        <div class="booking-field" id="guests-field">
+          <label>Гости</label>
+          <button type="button" class="booking-guests-btn" id="guests-btn" aria-expanded="false">2 взрослых, 0 детей</button>
+          <div class="booking-guests-panel" id="guests-panel">
+            <div class="booking-guest-row">
+              <span>Взрослые</span>
+              <div class="booking-stepper">
+                <button type="button" data-guest="adults" data-delta="-1" aria-label="Меньше взрослых">−</button>
+                <span id="adults-count">2</span>
+                <button type="button" data-guest="adults" data-delta="1" aria-label="Больше взрослых">+</button>
+              </div>
+            </div>
+            <div class="booking-guest-row">
+              <span>Дети</span>
+              <div class="booking-stepper">
+                <button type="button" data-guest="children" data-delta="-1" aria-label="Меньше детей">−</button>
+                <span id="children-count">0</span>
+                <button type="button" data-guest="children" data-delta="1" aria-label="Больше детей">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="booking-bar-submit">найти номер</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="about-head">
+        <div class="section-label">О нас</div>
+        <h2>Мы позаботились о вашем комфорте</h2>
+      </div>
+      <div class="about-showcase">
+        <div class="about-photo lake" aria-label="Озеро и территория"><span class="photo-mark">Ф5 · нужно</span></div>
+        <div class="about-photo rooms" aria-label="Номера"><span class="photo-mark">Ф6 · нужно</span></div>
+        <div class="about-photo sauna" aria-label="Баня и сауна"><span class="photo-mark">Ф7 · нужно</span></div>
+        <div class="about-text-card">
+          <h3>Мы позаботились о вашем комфорте</h3>
+          <p>База отдыха на берегу одного из красивейших озёр Карельского перешейка. Уютные номера, баня и сауна, выход к воде, сап-борды и лодки. ~85 км от Санкт-Петербурга.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rooms" class="alt">
+    <div class="container">
+      <div class="section-label">Проживание</div>
+      <h2>Номера и апартаменты</h2>
+      <p class="section-intro">Комфортное размещение на любой вкус — от уединённого отдыха вдвоём до семейного отпуска с детьми.</p>
+      <div class="rooms-grid">
+        <article class="room-card">
+          <span class="photo-mark">Ф8 · нужно</span>
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Одноместный номер">
+          <div class="room-card-body">
+            <h3>Одноместный номер</h3>
+            <div class="room-meta"><span>1 гость</span><span>свой душ</span></div>
+            <p>Для спокойного, комфортного отдыха в уединении.</p>
+            <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <span class="photo-mark ready">Ф9 · есть</span>
+          <img src="assets/room-double-standard.jpg" alt="Двухместный номер стандарт №15">
+          <div class="room-card-body">
+            <h3>Двухместный номер стандарт №15</h3>
+            <div class="room-meta"><span>2 гостя</span><span>23 м²</span><span>вид на сад</span></div>
+            <p>Уютный стандартный двухместный номер с двуспальной кроватью и видом на лес.</p>
+            <div class="room-tags">
+              <span class="room-tag">Душ</span>
+              <span class="room-tag">Холодильник</span>
+              <span class="room-tag">Чайник</span>
+              <span class="room-tag">Микроволновка</span>
+            </div>
+            <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <span class="photo-mark ready">Ф10 · есть</span>
+          <img src="assets/room-comfort-24.jpg" alt="Двухместный номер Комфорт №24">
+          <div class="room-card-body">
+            <h3>Двухместный номер «Комфорт» №24</h3>
+            <div class="room-meta"><span>2 гостя</span><span>28 м²</span><span>вид на озеро</span></div>
+            <p>Комфортный номер с выходом на панорамную террасу и встроенной кухней.</p>
+            <div class="room-tags">
+              <span class="room-tag">Терраса</span>
+              <span class="room-tag">Smart TV</span>
+              <span class="room-tag">Кухня</span>
+              <span class="room-tag">Душ</span>
+            </div>
+            <div class="room-price">от 3 500 ₽ <span>/ ночь</span></div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <span class="photo-mark ready">Ф11 · есть</span>
+          <img src="assets/room-twin-33.jpg" alt="Двухместный номер с двумя полутораспальными кроватями №33">
+          <div class="room-card-body">
+            <h3>Двухместный номер №33</h3>
+            <div class="room-meta"><span>2 гостя</span><span>25 м²</span><span>вид на озеро</span></div>
+            <p>Уютный номер с двумя полутораспальными кроватями — удобно для друзей или коллег.</p>
+            <div class="room-tags">
+              <span class="room-tag">2 кровати</span>
+              <span class="room-tag">Душ</span>
+              <span class="room-tag">Холодильник</span>
+              <span class="room-tag">С животными</span>
+            </div>
+            <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <span class="photo-mark">Ф12 · нужно</span>
+          <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80" alt="Двухкомнатный номер">
+          <div class="room-card-body">
+            <h3>Двухкомнатный номер</h3>
+            <div class="room-meta"><span>до 4 гостей</span><span>2 комнаты</span></div>
+            <p>Просторный номер для семьи или небольшой компании.</p>
+            <div class="room-price">от 5 000 ₽ <span>/ ночь</span></div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <span class="photo-mark">Ф13 · нужно</span>
+          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" alt="Семейные апартаменты">
+          <div class="room-card-body">
+            <h3>Семейные апартаменты</h3>
+            <div class="room-meta"><span>до 6 гостей</span><span>54 м²</span></div>
+            <p>Просторные апартаменты с кухней — идеально для отдыха с детьми.</p>
+            <div class="room-price">от 6 500 ₽ <span>/ ночь</span></div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="promo">
+    <div class="container">
+      <div class="section-label">Акции</div>
+      <h2>Спецпредложения</h2>
+      <p class="section-intro">Выгодные условия для гостей базы отдыха. Тексты и условия — уточнить у заказчика.</p>
+      <div class="promo-grid">
+        <article class="promo-card">
+          <div class="promo-badge">Скидка</div>
+          <h3>Раннее бронирование</h3>
+          <p>Скидка при бронировании заранее. Условия: срок до заезда, предоплата, сезонность — уточняются.</p>
+          <div class="promo-actions">
+            <a href="#rooms" class="btn btn-outline">Выбрать номер</a>
+            <a href="#promo-rannee-detail" class="promo-link">Условия акции →</a>
+          </div>
+        </article>
+        <article class="promo-card">
+          <div class="promo-badge">Пакет</div>
+          <h3>Баня + сауна</h3>
+          <p>Выгодный тариф для проживающих: баня или сауна по специальной цене при бронировании номера.</p>
+          <div class="promo-actions">
+            <a href="#rooms" class="btn btn-outline">Выбрать номер</a>
+            <a href="#promo-banya-sauna-detail" class="promo-link">Условия акции →</a>
+          </div>
+        </article>
+        <article class="promo-card">
+          <div class="promo-badge">Праздник</div>
+          <h3>День рождения</h3>
+          <p>Скидка именинникам при предъявлении документа. Срок действия до и после дня рождения — уточняется.</p>
+          <div class="promo-actions">
+            <a href="#rooms" class="btn btn-outline">Выбрать номер</a>
+            <a href="#promo-birthday-detail" class="promo-link">Условия акции →</a>
+          </div>
+        </article>
+      </div>
+
+      <div id="promo-rannee-detail" class="promo-detail-block">
+        <a href="#promo" class="promo-page-back">← Все спецпредложения</a>
+        <div class="section-label">Скидка</div>
+        <h3>Раннее бронирование — условия</h3>
+        <p class="lead">Специальное предложение для гостей, которые бронируют проживание заранее.</p>
+        <div class="promo-placeholder-note">Черновик — заменить текстами от заказчика. На Tilda: отдельная страница `/promo/rannee`.</div>
+        <div class="promo-conditions">
+          <h3>Условия акции</h3>
+          <ul>
+            <li>Размер скидки — уточняется (ориентир: −10%)</li>
+            <li>Бронирование не позднее чем за 7–14 дней до заезда</li>
+            <li>100% предоплата при бронировании</li>
+            <li>Не распространяется на заезд в субботу — уточнить</li>
+          </ul>
+        </div>
+        <div class="promo-actions">
+          <a href="#rooms" class="btn btn-outline">Выбрать номер</a>
+          <a href="#booking" class="btn">Забронировать</a>
+        </div>
+      </div>
+
+      <div id="promo-banya-sauna-detail" class="promo-detail-block">
+        <a href="#promo" class="promo-page-back">← Все спецпредложения</a>
+        <div class="section-label">Пакет</div>
+        <h3>Баня + сауна — условия</h3>
+        <p class="lead">Выгодный тариф для проживающих: баня или сауна по специальной цене при бронировании номера.</p>
+        <div class="promo-placeholder-note">Черновик — заменить текстами от заказчика. На Tilda: отдельная страница `/promo/banya-sauna`.</div>
+        <div class="promo-conditions">
+          <h3>Условия акции</h3>
+          <ul>
+            <li>Доступно только для гостей с действующим бронированием номера</li>
+            <li>Специальная цена на баню и/или сауну — уточнить</li>
+            <li>Тариф выбирается при бронировании или на ресепшене — уточнить</li>
+            <li>Сауна: от 3 000 ₽ / 2 часа (см. <a href="#services">прайс сауны</a>)</li>
+            <li>Баня: стоимость и условия — уточнить у заказчика</li>
+          </ul>
+        </div>
+        <div class="promo-actions">
+          <a href="#rooms" class="btn btn-outline">Выбрать номер</a>
+          <a href="#booking" class="btn">Забронировать</a>
+        </div>
+      </div>
+
+      <div id="promo-birthday-detail" class="promo-detail-block">
+        <a href="#promo" class="promo-page-back">← Все спецпредложения</a>
+        <div class="section-label">Праздник</div>
+        <h3>День рождения — условия</h3>
+        <p class="lead">Скидка именинникам при предъявлении документа.</p>
+        <div class="promo-placeholder-note">Черновик — заменить текстами от заказчика. На Tilda: отдельная страница `/promo/birthday`.</div>
+        <div class="promo-conditions">
+          <h3>Условия акции</h3>
+          <ul>
+            <li>Скидка для именинника — уточнить (% или фиксированная сумма)</li>
+            <li>Действует за 7 дней до и после дня рождения — уточнить</li>
+            <li>Необходим документ, подтверждающий дату рождения</li>
+            <li>Промокод — уточнить (ориентир: «ПРАЗДНИК»)</li>
+          </ul>
+        </div>
+        <div class="promo-actions">
+          <a href="#rooms" class="btn btn-outline">Выбрать номер</a>
+          <a href="#booking" class="btn">Забронировать</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-label">Услуги</div>
+      <h2>Чем заняться на территории</h2>
+      <p class="section-intro">Выберите услугу — описание обновится выше. Фото услуг: слоты Ф21–Ф28 (список в описании прототипа). Сауна (Ф22) уже есть.</p>
+
+      <div id="service-detail" class="service-feature" aria-live="polite"></div>
+
+      <div class="services-grid" id="services-grid">
+        <div class="service-item active" data-service="banya" role="button" tabindex="0">
+          <div class="service-icon">♨</div>
+          <div>
+            <h3>Русская баня</h3>
+            <p>Настоящая баня с травяным чаем и уютной атмосферой</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="sauna" role="button" tabindex="0">
+          <div class="service-icon">💧</div>
+          <div>
+            <h3>Сауна с джакузи</h3>
+            <p>от 3 000 ₽ / 2 часа · далее 1 200 ₽/час</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="sup" role="button" tabindex="0">
+          <div class="service-icon">🏄</div>
+          <div>
+            <h3>Сап-борды и лодки</h3>
+            <p>Прогулки по озеру и активный отдых на воде</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="billiard" role="button" tabindex="0">
+          <div class="service-icon">🎱</div>
+          <div>
+            <h3>Бильярд и теннис</h3>
+            <p>Комната с бильярдом и настольный теннис</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="volleyball" role="button" tabindex="0">
+          <div class="service-icon">🏐</div>
+          <div>
+            <h3>Волейбольное поле</h3>
+            <p>Активные игры на свежем воздухе</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="playground" role="button" tabindex="0">
+          <div class="service-icon">🧒</div>
+          <div>
+            <h3>Детская площадка</h3>
+            <p>Безопасное пространство для маленьких гостей</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="bbq" role="button" tabindex="0">
+          <div class="service-icon">🔥</div>
+          <div>
+            <h3>Мангальные зоны</h3>
+            <p>Беседки с мангалами для отдыха на природе</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="banquet" role="button" tabindex="0">
+          <div class="service-icon">🎉</div>
+          <div>
+            <h3>Банкетный зал</h3>
+            <p>Проведение мероприятий и праздников</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <div class="section-label">Галерея</div>
+      <h2>Узнайте базу ближе: интерьеры, виды и атмосфера</h2>
+      <p class="section-intro">Такой блок есть в шаблоне Hotel на Tilda. Метки Ф14–Ф20 — какие фото поставить в плитки.</p>
+      <div class="gallery-bento">
+        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф14 · нужно</span><span class="gallery-tile-label">территория</span></div>
+        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф15 · нужно</span><span class="gallery-tile-label">озеро</span></div>
+        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф16 · нужно</span><span class="gallery-tile-label">номера</span></div>
+        <div class="gallery-tile tall" title="Перейти в галерею"><span class="photo-mark">Ф17 · нужно</span><span class="gallery-tile-label">интерьер</span></div>
+        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф18 · нужно</span><span class="gallery-tile-label">баня и сауна</span></div>
+        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф19 · нужно</span><span class="gallery-tile-label">сап-борды</span></div>
+        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф20 · нужно</span><span class="gallery-tile-label">отдых на природе</span></div>
+        <div class="gallery-note">
+          <h3>Наведите на фото — перейдёте в галерею</h3>
+          <p>Здесь будут фото номеров, бани, территории и озера. На Tilda каждая плитка ведёт на страницу <code>/gallery</code> или открывает увеличенное фото.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" class="alt">
+    <div class="container">
+      <div class="section-label">О нас</div>
+      <h2>Отзывы</h2>
+      <p class="section-intro">Рейтинг 4.9 на основе отзывов гостей. Можно подключить виджет Яндекса.</p>
+      <div class="rating-block">
+        <div class="rating-score">4.9</div>
+        <div>
+          <div class="rating-stars">★★★★★</div>
+          <div style="font-size:14px;color:var(--text-muted)">157 отзывов</div>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <p>«От атмосферы до локации всё 10 из 10! Очень уютно, номер большой и просторный, шикарный вид на озеро. Великолепное место, в которое хочется возвращаться!»</p>
+          <div class="review-author">Ксения</div>
+          <div class="review-date">Сентябрь 2025</div>
+        </div>
+        <div class="review-card">
+          <p>«Прекрасное место. Территория большая, ухоженная, есть всё для полноценного отдыха. Отдельная изюминка — бильярд!»</p>
+          <div class="review-author">Кирилл</div>
+          <div class="review-date">Август 2025</div>
+        </div>
+        <div class="review-card">
+          <p>«Мне очень понравилось. Персонал чуткий и внимательный, чистое постельное бельё, есть Wi-Fi. Рядом красивейший лес на берегу озера.»</p>
+          <div class="review-author">Елена</div>
+          <div class="review-date">Август 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="news">
+    <div class="container">
+      <div class="section-label">О нас</div>
+      <h2>Новости</h2>
+      <p class="section-intro">Акции, события и обновления базы. На Tilda — Feed / новости или ручные карточки.</p>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-image"><span class="photo-mark">Ф29 · по желанию</span>Фото новости</div>
+          <div class="news-card-body">
+            <div class="news-date">Март 2026</div>
+            <h3>Открытие сезона 2026</h3>
+            <p>База отдыха «Александровская» открывает сезон. Уточняйте даты и условия бронирования.</p>
+            <a href="#">Читать далее →</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-image"><span class="photo-mark">Ф30 · по желанию</span>Фото новости</div>
+          <div class="news-card-body">
+            <div class="news-date">Февраль 2026</div>
+            <h3>Обновлённый прайс на сауну</h3>
+            <p>Актуальные цены на аренду сауны с джакузи на сезон январь–апрель 2026 года.</p>
+            <a href="#promo-banya-sauna-detail">Читать далее →</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-image"><span class="photo-mark">Ф31 · по желанию</span>Фото новости</div>
+          <div class="news-card-body">
+            <div class="news-date">Январь 2026</div>
+            <h3>Спецпредложения для гостей</h3>
+            <p>Раннее бронирование, пакеты «Баня + сауна» и скидки именинникам.</p>
+            <a href="#promo">Читать далее →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="route" class="alt">
+    <div class="container">
+      <div class="section-label">Маршрут</div>
+      <h2>Как до нас добраться</h2>
+      <p class="section-intro">Ленинградская обл., Выборгский р-н, д. Мамонтовка, ул. Компрессорная, 28</p>
+      <div class="route-grid">
+        <div>
+          <div class="route-tabs">
+            <button type="button" class="route-tab active" data-route="car">На автомобиле</button>
+            <button type="button" class="route-tab" data-route="transit">На транспорте</button>
+          </div>
+          <div class="route-text" id="route-text" aria-live="polite"></div>
+        </div>
+        <div class="map-placeholder">
+          Здесь будет интерактивная карта Яндекс / Google<br><br>
+          Координаты: 60.38, 28.99
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <div class="section-label">FAQ</div>
+      <h2>Частые вопросы</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>Можно ли с животными?</h3>
+          <p>Да, мы принимаем гостей с животными за дополнительную плату.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Есть ли парковка?</h3>
+          <p>Да, для гостей предусмотрена бесплатная парковка на территории базы.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Время заезда и выезда?</h3>
+          <p>Заезд с 14:00, выезд до 12:00. Ранний заезд и поздний выезд — по согласованию.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Есть ли кухня?</h3>
+          <p>В части номеров — кухонный уголок. Также есть общая кухня с панорамной террасой.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Можно ли порыбачить?</h3>
+          <p>Да, озеро Александровское популярно у рыбаков. Снасти можно взять с собой или уточнить на ресепшене.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="booking-block">
+    <div class="container">
+      <h2>Забронировать номер</h2>
+      <p>Макет страницы /booking: гость выбирает даты на главной — здесь открывается модуль Бnovo с наличием. На живом сайте будет тот же каталог, что сейчас на reservationsteps.ru.</p>
+      <div class="booking-mock" id="booking-summary">
+        Выберите даты в полоске на главной и нажмите «найти номер».
+      </div>
+      <div class="booking-results" id="booking-results" hidden></div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="container">
+      <div class="section-label">Контакты</div>
+      <h2>Свяжитесь с нами</h2>
+      <div class="contacts-grid">
+        <div>
+          <div class="contact-item">
+            <strong>Телефон</strong>
+            <a href="tel:+79990215060">+7 (999) 021-50-60</a>
+          </div>
+          <div class="contact-item">
+            <strong>Email</strong>
+            <a href="mailto:info@alexandrovskaya.ru">info@alexandrovskaya.ru</a>
+          </div>
+          <div class="contact-item">
+            <strong>Адрес базы</strong>
+            <span>Ленинградская обл., Выборгский р-н,<br>д. Мамонтовка, ул. Компрессорная, 28</span>
+          </div>
+          <div class="contact-item">
+            <strong>Режим работы</strong>
+            <span>Круглосуточно (ресепшен)</span>
+          </div>
+          <div class="contact-item">
+            <strong>Мы в соцсетях</strong>
+            <div class="social-links">
+              <a href="https://vk.com/ohota_rybalka_aleksandrovskaya" class="social-link" target="_blank" rel="noopener">ВКонтакте</a>
+              <a href="https://t.me/+79697152763" class="social-link" target="_blank" rel="noopener">Telegram</a>
+              <a href="https://wa.me/79697152763" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
+              <a href="https://alexandrovskaya.clients.site/" class="social-link" target="_blank" rel="noopener">Яндекс</a>
+            </div>
+          </div>
+        </div>
+        <div class="map-placeholder" style="height:260px">
+          Карта с меткой базы
+        </div>
+      </div>
+      <div class="requisites">
+        <h3>Реквизиты</h3>
+        <p class="requisites-note">Блок нужен на основном сайте для модуля интернет-эквайринга: юридический адрес, банк обслуживания и расчётный счёт.</p>
+        <table class="requisites-table">
+          <tr>
+            <th>Наименование организации</th>
+            <td>АО НПО «Компрессор»</td>
+          </tr>
+          <tr>
+            <th>ОГРН</th>
+            <td>1097847037804</td>
+          </tr>
+          <tr>
+            <th>ИНН</th>
+            <td>7802461504</td>
+          </tr>
+          <tr>
+            <th>Юридический адрес</th>
+            <td>195277, г. Санкт-Петербург, проспект Большой Сампсониевский, д. 64 литера А</td>
+          </tr>
+          <tr>
+            <th>Наименование банка</th>
+            <td>Филиал «Санкт-Петербургский» АО «АЛЬФА-БАНК»</td>
+          </tr>
+          <tr>
+            <th>БИК банка</th>
+            <td>044030786</td>
+          </tr>
+          <tr>
+            <th>Расчётный счёт</th>
+            <td>40702810832000026271</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">
+          <img src="assets/logo.png" alt="Александровская">
+        </div>
+        <div class="footer-brand-name">База отдыха «Александровская»</div>
+        <div class="footer-social" style="margin-top:14px">
+          <a href="https://vk.com/ohota_rybalka_aleksandrovskaya" target="_blank" rel="noopener">VK</a>
+          <a href="https://t.me/+79697152763" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://wa.me/79697152763" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-legal-links">
+          <a href="#contacts">Правовая информация</a>
+          <a href="#contacts">Политика конфиденциальности</a>
+        </div>
+        <div class="footer-legal-text">
+          Наименование организации: АО НПО «Компрессор»<br>
+          ОГРН: 1097847037804<br>
+          ИНН: 7802461504<br>
+          Юридический адрес: 195277, г. Санкт-Петербург, проспект Большой Сампсониевский, д. 64 литера А<br>
+          Банк: Филиал «Санкт-Петербургский» АО «АЛЬФА-БАНК» · БИК 044030786 · р/с 40702810832000026271
+        </div>
+      </div>
+    </div>
+    <div class="footer-copy">
+      © 2026 База отдыха «Александровская»
+    </div>
+  </footer>
+
+  <script>
+    function servicePlaceholder(title) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480">
+        <rect width="800" height="480" fill="#e8f2f2"/>
+        <rect x="300" y="130" width="200" height="150" rx="10" fill="#c5dede"/>
+        <circle cx="370" cy="190" r="22" fill="#2b6b6b" opacity="0.3"/>
+        <path d="M330 250 L400 205 L470 250 L470 270 L330 270 Z" fill="#2b6b6b" opacity="0.3"/>
+        <text x="400" y="330" text-anchor="middle" fill="#2b6b6b" font-family="Arial,sans-serif" font-size="22" font-weight="600">${title}</text>
+        <text x="400" y="360" text-anchor="middle" fill="#666666" font-family="Arial,sans-serif" font-size="15">Заглушка — фото от заказчика</text>
+      </svg>`;
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+
+    const servicesData = {
+      banya: {
+        label: 'Релакс',
+        title: 'Русская баня',
+        alt: 'Русская баня',
+        description: 'Настоящая русская баня с травяным чаем и уютной атмосферой. Идеальное место для восстановления сил после активного дня на озере.',
+        priceTitle: 'Аренда бани',
+        prices: ['Стоимость и условия — уточнить у заказчика'],
+        note: 'Фото и прайс — добавить при получении от заказчика.'
+      },
+      sauna: {
+        label: 'Аренда',
+        title: 'Сауна с джакузи',
+        image: 'assets/sauna.jpg',
+        alt: 'Сауна с джакузи',
+        description: 'Финская сауна с джакузи, зона отдыха с деревянной мебелью. Идеальное место для релаксации после насыщенного дня.',
+        priceTitle: 'Аренда сауны',
+        prices: [
+          'Первые 2 часа — <strong>3 000 ₽</strong>',
+          'Последующий час — <strong>1 200 ₽</strong>/час'
+        ],
+        note: '* Цены актуальны на сезон январь–апрель 2026 года.'
+      },
+      sup: {
+        label: 'Активный отдых',
+        title: 'Сап-борды и лодки',
+        alt: 'Сап-борды на озере',
+        description: 'Прогулки по озеру Александровское на сап-бордах и лодках. Новые впечатления и активный отдых на воде.',
+        priceTitle: 'Прокат',
+        prices: ['Стоимость проката — уточнить у заказчика'],
+        note: ''
+      },
+      billiard: {
+        label: 'Развлечения',
+        title: 'Бильярд и настольный теннис',
+        alt: 'Бильярд',
+        description: 'Комната с бильярдом и настольный теннис на территории базы. Отличный досуг в любую погоду.',
+        priceTitle: '',
+        prices: ['Доступно для гостей базы'],
+        note: ''
+      },
+      volleyball: {
+        label: 'Спорт',
+        title: 'Волейбольное поле',
+        alt: 'Волейбольное поле',
+        description: 'Волейбольное поле на свежем воздухе — активные игры для компаний и семей.',
+        priceTitle: '',
+        prices: ['Бесплатно для проживающих'],
+        note: ''
+      },
+      playground: {
+        label: 'Для детей',
+        title: 'Детская площадка',
+        alt: 'Детская площадка',
+        description: 'Оборудованная детская площадка — безопасное и весёлое пространство для маленьких гостей.',
+        priceTitle: '',
+        prices: ['Бесплатно для гостей базы'],
+        note: ''
+      },
+      bbq: {
+        label: 'Отдых на природе',
+        title: 'Мангальные зоны',
+        alt: 'Мангальная зона',
+        description: 'Беседки с мангалами для отдыха на природе. Можно приготовить шашлык и провести время у воды.',
+        priceTitle: '',
+        prices: ['Беседки для гостей базы'],
+        note: ''
+      },
+      banquet: {
+        label: 'Мероприятия',
+        title: 'Банкетный зал',
+        alt: 'Банкетный зал',
+        description: 'Банкетный зал для проведения мероприятий, праздников и корпоративных встреч.',
+        priceTitle: 'Аренда зала',
+        prices: ['Условия и стоимость — по запросу'],
+        note: 'Связаться: +7 (999) 021-50-60'
+      }
+    };
+
+    function renderServiceDetail(key) {
+      const data = servicesData[key];
+      const detail = document.getElementById('service-detail');
+      if (!data || !detail) return;
+
+      const pricesHtml = data.prices.length
+        ? `<div class="service-price">${data.priceTitle || 'Условия'}</div>
+           <ul class="service-price-list">${data.prices.map(p => `<li>${p}</li>`).join('')}</ul>`
+        : '';
+
+      const imgSrc = data.image || servicePlaceholder(data.alt);
+      const fallback = servicePlaceholder(data.alt);
+
+      detail.innerHTML = `
+        <img src="${imgSrc}" alt="${data.alt}" onerror="this.onerror=null;this.src='${fallback}'">
+        <div>
+          <div class="section-label">${data.label}</div>
+          <h3 style="margin-bottom:12px">${data.title}</h3>
+          <p style="color:var(--text-muted);font-size:15px;margin-bottom:8px">${data.description}</p>
+          ${pricesHtml}
+          ${data.note ? `<p class="service-price-note">${data.note}</p>` : ''}
+        </div>
+      `;
+    }
+
+    document.querySelectorAll('.service-item[data-service]').forEach(item => {
+      const select = () => {
+        document.querySelectorAll('.service-item').forEach(el => el.classList.remove('active'));
+        item.classList.add('active');
+        renderServiceDetail(item.dataset.service);
+      };
+      item.addEventListener('click', select);
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          select();
+        }
+      });
+    });
+
+    renderServiceDetail('banya');
+
+    const routeContent = {
+      car: `
+        <p>Из Санкт-Петербурга по Приморскому шоссе в сторону Выборга. Далее по указателям на пос. Мамонтовка, д. Мамонтовка, ул. Компрессорная, 28.</p>
+        <p style="margin-top:12px"><strong>Расстояние:</strong> ~85 км от КАД<br>
+        <strong>Время в пути:</strong> 1–1,5 часа</p>
+      `,
+      transit: `
+        <p>От ст. метро «Парнас» или «Комендантский проспект» — автобус в сторону Выборга / Приморска. Пересадка по маршруту к пос. Мамонтовка — уточнить у заказчика актуальное расписание.</p>
+        <p style="margin-top:12px"><strong>Расстояние:</strong> ~85 км от СПб<br>
+        <strong>Время в пути:</strong> 2–2,5 часа</p>
+        <p style="margin-top:12px;font-size:13px">* Точный маршрут и расписание — уточнить у заказчика перед публикацией.</p>
+      `
+    };
+
+    function setRouteTab(type) {
+      const textEl = document.getElementById('route-text');
+      if (!textEl || !routeContent[type]) return;
+      textEl.innerHTML = routeContent[type];
+      document.querySelectorAll('.route-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.route === type);
+      });
+    }
+
+    document.querySelectorAll('.route-tab[data-route]').forEach(tab => {
+      tab.addEventListener('click', () => setRouteTab(tab.dataset.route));
+    });
+
+    setRouteTab('car');
+
+    (function initBookingBar() {
+      const form = document.getElementById('hero-booking-form');
+      const checkin = document.getElementById('checkin');
+      const checkout = document.getElementById('checkout');
+      const guestsBtn = document.getElementById('guests-btn');
+      const guestsPanel = document.getElementById('guests-panel');
+      const guestsField = document.getElementById('guests-field');
+      const adultsEl = document.getElementById('adults-count');
+      const childrenEl = document.getElementById('children-count');
+      const summary = document.getElementById('booking-summary');
+      const results = document.getElementById('booking-results');
+      if (!form || !checkin || !checkout) return;
+
+      const guests = { adults: 2, children: 0 };
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function toISO(date) {
+        return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+      }
+
+      function addDays(date, days) {
+        const next = new Date(date);
+        next.setDate(next.getDate() + days);
+        return next;
+      }
+
+      function formatRu(iso) {
+        if (!iso) return '—';
+        const [y, m, d] = iso.split('-');
+        return d + '.' + m + '.' + y;
+      }
+
+      function nightsBetween(a, b) {
+        const start = new Date(a + 'T00:00:00');
+        const end = new Date(b + 'T00:00:00');
+        return Math.max(1, Math.round((end - start) / 86400000));
+      }
+
+      function guestsLabel() {
+        const a = guests.adults;
+        const c = guests.children;
+        const adultsText = a + ' ' + (a === 1 ? 'взрослый' : 'взрослых');
+        const childrenText = c + ' ' + (c === 1 ? 'ребёнок' : 'детей');
+        return adultsText + ', ' + childrenText;
+      }
+
+      function renderGuests() {
+        adultsEl.textContent = guests.adults;
+        childrenEl.textContent = guests.children;
+        guestsBtn.textContent = guestsLabel();
+      }
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      checkin.min = toISO(today);
+      checkin.value = toISO(addDays(today, 1));
+      checkout.value = toISO(addDays(today, 2));
+      checkout.min = checkout.value;
+
+      checkin.addEventListener('change', () => {
+        const minOut = toISO(addDays(new Date(checkin.value + 'T00:00:00'), 1));
+        checkout.min = minOut;
+        if (checkout.value <= checkin.value) checkout.value = minOut;
+      });
+
+      guestsBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const open = guestsPanel.classList.toggle('open');
+        guestsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      guestsPanel.addEventListener('click', e => e.stopPropagation());
+
+      guestsField.querySelectorAll('.booking-stepper button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.dataset.guest;
+          const delta = Number(btn.dataset.delta);
+          const min = key === 'adults' ? 1 : 0;
+          guests[key] = Math.max(min, Math.min(8, guests[key] + delta));
+          renderGuests();
+        });
+      });
+
+      document.addEventListener('click', () => {
+        guestsPanel.classList.remove('open');
+        guestsBtn.setAttribute('aria-expanded', 'false');
+      });
+
+      const mockRooms = [
+        { name: 'Двухместный номер стандарт №15', meta: '23 м² · 2 гостя', price: 'от 2 900 ₽' },
+        { name: 'Двухместный номер «Комфорт» №24', meta: '28 м² · терраса · вид на озеро', price: 'от 3 500 ₽' },
+        { name: 'Двухместный номер №33', meta: '25 м² · 2 кровати · вид на озеро', price: 'от 2 900 ₽' }
+      ];
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        guestsPanel.classList.remove('open');
+        const nights = nightsBetween(checkin.value, checkout.value);
+        summary.innerHTML =
+          '<strong>Макет модуля Бnovo</strong><br><br>' +
+          'Заезд ' + formatRu(checkin.value) + ' · выезд ' + formatRu(checkout.value) +
+          ' · ' + nights + ' ноч. · ' + guestsLabel() +
+          '<p class="booking-note">На готовом сайте здесь откроется живой модуль Бnovo с наличием и оплатой. Это показ логики для согласования.</p>';
+        results.hidden = false;
+        results.innerHTML = mockRooms.map(room =>
+          '<div class="booking-result"><div><strong>' + room.name + '</strong><span>' + room.meta + '</span></div><em>' + room.price + '</em></div>'
+        ).join('');
+        document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+      });
+
+      renderGuests();
+    })();
+
+    document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+      const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+      if (!toggle) return;
+
+      toggle.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = dropdown.classList.contains('open');
+        document.querySelectorAll('.nav-dropdown').forEach(item => {
+          item.classList.remove('open');
+          const btn = item.querySelector('.nav-dropdown-toggle');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          dropdown.classList.add('open');
+          toggle.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.nav-dropdown').forEach(item => {
+        item.classList.remove('open');
+        const btn = item.querySelector('.nav-dropdown-toggle');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
+</body>
+</html>

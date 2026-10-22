@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Резюме — сайт базы отдыха «Александровская»</title>
+  <style>
+    :root {
+      --brand: #2b6b6b;
+      --brand-dark: #1f5252;
+      --brand-light: #e8f2f2;
+      --cream: #f5f0e8;
+      --text: #333;
+      --muted: #666;
+      --border: #e0e0e0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+      background: #fafafa;
+    }
+    .doc-header {
+      background: var(--brand-dark);
+      color: #fff;
+      padding: 48px 24px;
+    }
+    .doc-header-inner { max-width: 900px; margin: 0 auto; }
+    .doc-header h1 { font-size: 28px; margin-bottom: 8px; color: #fff; }
+    .doc-header p { color: #fff; opacity: 0.9; max-width: 760px; }
+    .doc-header .meta { color: #fff; margin-top: 20px; font-size: 13px; opacity: 0.85; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+    section { margin-bottom: 40px; }
+    h2 {
+      font-size: 20px;
+      color: var(--brand-dark);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--brand-light);
+    }
+    p, li { font-size: 15px; }
+    p { margin-bottom: 12px; }
+    ul, ol { margin: 0 0 14px 20px; }
+    li { margin-bottom: 6px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 14px;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: var(--brand-light); color: var(--brand-dark); font-weight: 600; }
+    .info {
+      background: var(--brand-light);
+      border-left: 4px solid var(--brand);
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 14px;
+      border-radius: 0 6px 6px 0;
+    }
+    .success {
+      background: #e8f5e9;
+      border-left: 4px solid #4caf50;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 14px;
+      border-radius: 0 6px 6px 0;
+    }
+    .files-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .files-box li { list-style: none; margin-left: 0; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+    .files-box li:last-child { border-bottom: none; }
+    .files-box code { background: var(--cream); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    a { color: var(--brand); }
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    @media print {
+      body { background: #fff; }
+      .doc-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="doc-header">
+    <div class="doc-header-inner">
+      <h1>Резюме по задаче</h1>
+      <p>Сайт базы отдыха «Александровская» — анализ, структура, прототип и рекомендации по реализации</p>
+      <div class="meta">
+        Дата: 21.09.2026 · Объект: д. Мамонтовка, озеро Александровское, Выборгский р-н<br>
+        Текущий сайт: <a href="https://alexandrovskaya.clients.site/" style="color:#fff">alexandrovskaya.clients.site</a> (визитка Яндекса)
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section>
+      <h2>1. Задача</h2>
+      <p>Подготовить предложение по новому сайту базы отдыха «Александровская»: проанализировать примеры, согласовать структуру, показать прототип и выбрать платформу с учётом возможности самостоятельно менять контент и подключения модуля бронирования <strong>Бnovo</strong>.</p>
+    </section>
+
+    <section>
+      <h2>2. Что сделано</h2>
+      <ul>
+        <li>Изучены референсы заказчика: <a href="https://akkala-hotel.ru/">akkala-hotel.ru</a> (Tilda, атмосфера) и <a href="https://hevaa.ru/">hevaa.ru</a> (каталог номеров, акции)</li>
+        <li>Согласована структура сайта — 11 страниц / разделов</li>
+        <li>Собран интерактивный прототип в фирменном стиле (цвет #2B6B6B, логотип заказчика)</li>
+        <li>Оформлено описание структуры и техническая карта переноса на Tilda</li>
+        <li>Прототип приведён к стилю шаблона <strong>Hotel (Pro)</strong> на Tilda: hero, блок «О нас», галерея bento</li>
+      </ul>
+      <div class="success">
+        <strong>Результат для согласования:</strong> два standalone-файла — резюме (этот документ), описание (<code>OPISANIE-PROTOTIPA.html</code>) и прототип (<code>prototip-aleksandrovskaya.html</code>). Каждый открывается двойным щелчком в браузере.
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Рекомендация</h2>
+      <div class="info">
+        <strong>Платформа: Tilda, шаблон Hotel (Pro), тариф Personal.</strong><br>
+        Сборку сайта заказчик планирует выполнить <strong>своими руками</strong> — это снижает стоимость запуска до подписки и домена.
+      </div>
+      <table>
+        <tr><th>Критерий</th><th>Tilda + Hotel</th></tr>
+        <tr><td>Стиль как у референсов</td><td>Да — шаблон Hotel повторяет логику akkala-hotel.ru</td></tr>
+        <tr><td>Каталог номеров и акции</td><td>Да — как у hevaa.ru</td></tr>
+        <tr><td>Менять фото и тексты самостоятельно</td><td>Да — через редактор Tilda</td></tr>
+        <tr><td>Модуль Бnovo</td><td>Да — подключается после публикации на домене</td></tr>
+        <tr><td>Нужен программист для правок</td><td>Нет — для типовых задач</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>4. Структура сайта</h2>
+      <table>
+        <tr><th>Раздел</th><th>URL</th><th>Назначение</th></tr>
+        <tr><td>Главная</td><td>/</td><td>Hero, о базе, превью номеров и услуг, отзывы</td></tr>
+        <tr><td>О нас ▾</td><td>/gallery · /reviews · /news</td><td>Галерея, отзывы, новости</td></tr>
+        <tr><td>Проживание</td><td>/rooms + 5 страниц номеров</td><td>Каталог с ценами «от …»</td></tr>
+        <tr><td>Спецпредложения</td><td>/promo</td><td>Акции; условия — на отдельных страницах</td></tr>
+        <tr><td>Услуги</td><td>/services</td><td>Баня, сауна, сапы, бильярд и др.</td></tr>
+        <tr><td>Как добраться</td><td>/route</td><td>Маршрут на авто и транспортом</td></tr>
+        <tr><td>Контакты</td><td>/contacts</td><td>Телефон, адрес, соцсети, карта</td></tr>
+        <tr><td>Бронирование</td><td>/booking</td><td>Модуль Бnovo</td></tr>
+      </table>
+      <p><strong>Меню:</strong> Главная · О нас ▾ · Проживание · Спецпредложения · Услуги · Как добраться · Контакты · Забронировать</p>
+    </section>
+
+    <section>
+      <h2>5. Стоимость запуска (сборка своими руками)</h2>
+      <table>
+        <tr><th>Статья</th><th>Сумма</th><th>Примечание</th></tr>
+        <tr>
+          <td>Tilda Personal</td>
+          <td><strong>500 ₽/мес</strong> при оплате за год</td>
+          <td>≈ 6 000 ₽/год · <a href="https://tilda.cc/ru/pricing/">tilda.cc/ru/pricing</a></td>
+        </tr>
+        <tr>
+          <td>Домен</td>
+          <td>500–1 500 ₽/год</td>
+          <td>Оплачивается у регистратора отдельно</td>
+        </tr>
+        <tr>
+          <td>Сборка сайта</td>
+          <td><strong>0 ₽</strong></td>
+          <td>Своими руками на шаблоне Hotel</td>
+        </tr>
+        <tr>
+          <td>Бnovo</td>
+          <td>по тарифу агрегатора</td>
+          <td>Устанавливается после публикации сайта</td>
+        </tr>
+        <tr>
+          <td><strong>Итого минимум</strong></td>
+          <td><strong>≈ 6 500–7 500 ₽/год</strong></td>
+          <td>Без оплаты подрядчику</td>
+        </tr>
+      </table>
+      <p style="font-size:14px;color:var(--muted)">Бесплатный тариф Tilda (Free) для финального сайта не подходит: нет Pro-шаблона Hotel и своего домена.</p>
+    </section>
+
+    <section>
+      <h2>6. Сроки</h2>
+      <table>
+        <tr><th>Этап</th><th>Срок</th></tr>
+        <tr><td>Согласование структуры (прототип)</td><td>1–3 дня</td></tr>
+        <tr><td>Регистрация Tilda, выбор шаблона Hotel</td><td>1–2 часа</td></tr>
+        <tr><td>Сборка страниц своими руками</td><td>5–10 рабочих дней при готовом контенте</td></tr>
+        <tr><td>Домен, публикация, Бnovo</td><td>1–2 дня</td></tr>
+        <tr><td><strong>Итого до запуска</strong></td><td><strong>~1–2 недели</strong></td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>7. Готовый контент (уже в прототипе)</h2>
+      <ul>
+        <li>Номера: Стандарт №15, Комфорт №24, №33 — фото, описания, цены</li>
+        <li>Сауна — прайс (3 000 ₽ / 2 ч, 1 200 ₽/час)</li>
+        <li>Контакты: +7 (999) 021-50-60, адрес, VK, Telegram, WhatsApp</li>
+        <li>Отзывы: рейтинг 4.9</li>
+        <li>Логотип и фирменный цвет #2B6B6B</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>8. Что нужно от заказчика</h2>
+      <ul>
+        <li>Фото: hero, галерея (15–30 шт.), оставшиеся категории номеров, баня, территория</li>
+        <li>Тексты акций (раннее бронирование, баня+сауна, день рождения) — условия и сроки</li>
+        <li>Маршрут: актуальные автобусы, уточнение по субботам для акций</li>
+        <li>Основной телефон для сайта (если менять текущий)</li>
+        <li>Подтверждение структуры разделов и меню</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>9. Приложения к результату</h2>
+      <div class="files-box">
+        <ul>
+          <li><code>REZUME.html</code> — этот документ (краткое резюме)</li>
+          <li><code>OPISANIE-PROTOTIPA.html</code> — подробное описание структуры и платформ</li>
+          <li><code>prototip-aleksandrovskaya.html</code> — интерактивный прототип (один файл, всё внутри)</li>
+          <li><code>TZ-tilda-mapping.md</code> — техническая карта «прототип → Tilda» (для сборки)</li>
+        </ul>
+      </div>
+      <p style="font-size:14px;margin-top:12px">Все HTML-файлы — standalone: открываются в браузере без установки программ.</p>
+    </section>
+
+    <section>
+      <h2>10. Следующий шаг</h2>
+      <ol>
+        <li>Заказчик просматривает прототип и даёт комментарии по структуре</li>
+        <li>После согласования — регистрация на Tilda, тариф Personal, шаблон Hotel</li>
+        <li>Наполнение контентом, публикация на домене</li>
+        <li>Подключение модуля Бnovo</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer>
+    База отдыха «Александровская» · Резюме по задаче · 21.09.2026
+  </footer>
+
+</body>
+</html>
