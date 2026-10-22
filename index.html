@@ -302,16 +302,16 @@
       color: var(--white);
     }
 
-    /* Hero — фото на весь блок, плитки справа не обрезаются */
+    /* Hero — фото на весь блок, полоса бронирования сверху поверх фото */
     .hero {
       position: relative;
       overflow: hidden;
-      padding: 56px 24px 28px;
+      padding: 24px 24px 40px;
       min-height: 0;
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      justify-content: center;
+      justify-content: flex-start;
       background: #1a3340;
     }
 
@@ -346,13 +346,15 @@
       gap: 32px;
       align-items: center;
       width: 100%;
-      margin-bottom: 28px;
+      flex: 1 1 auto;
     }
 
     .hero-booking-wrap {
       position: relative;
       z-index: 3;
       width: 100%;
+      margin-bottom: 28px;
+      flex-shrink: 0;
     }
 
     .booking-bar {
@@ -652,7 +654,7 @@
 
     .photo-mark.ready { background: #e8f5e9; color: #1a7f37; border-color: #b7e0bc; }
 
-    .hero .photo-mark { top: 16px; left: 16px; }
+    .hero .photo-mark { top: auto; bottom: 16px; left: 16px; }
     .about-photo { position: relative; }
     .news-card { position: relative; }
 
@@ -1436,6 +1438,12 @@
       .hero-grid { grid-template-columns: 1fr; gap: 32px; }
       .hero-bento { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px; }
       .hero-text h1 { font-size: clamp(28px, 8vw, 40px); }
+      .hero {
+        padding: 16px 16px 32px;
+      }
+      .hero-booking-wrap {
+        margin-bottom: 24px;
+      }
       .booking-bar {
         flex-wrap: wrap;
       }
@@ -1490,31 +1498,6 @@
     <img class="hero-bg" src="assets/hero-bg.jpg" alt="" aria-hidden="true">
     <div class="hero-overlay" aria-hidden="true"></div>
     <span class="photo-mark ready">Ф1 · фон главной · есть пример</span>
-    <div class="container hero-grid">
-      <div class="hero-text">
-        <div class="section-label">База отдыха «Александровская»</div>
-        <h1>Отдых на Карельском перешейке</h1>
-        <p class="hero-lead">Уютные номера, русская баня и сауна, сап-борды и лодки. Тишина, комфорт и душевная атмосфера у озера.</p>
-        <p class="hero-location">д. Мамонтовка, Выборгский р-н · ~85 км от Санкт-Петербурга</p>
-        <div class="hero-actions">
-          <a href="#booking" class="btn">Забронировать номер</a>
-          <a href="#rooms" class="btn btn-outline">Смотреть номера</a>
-        </div>
-        <div class="hero-tags">
-          <span class="hero-tag">Озеро</span>
-          <span class="hero-tag">Баня и сауна</span>
-          <span class="hero-tag">С животными</span>
-          <span class="hero-tag">Парковка</span>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-bento">
-          <div class="hero-tile main"><span class="photo-mark ready">Ф2 · есть пример</span><span class="hero-tile-label">территория и озеро</span></div>
-          <div class="hero-tile"><span class="photo-mark">Ф3 · нужно</span><span class="hero-tile-label">номера</span></div>
-          <div class="hero-tile"><span class="photo-mark">Ф4 · нужно</span><span class="hero-tile-label">баня и сауна</span></div>
-        </div>
-      </div>
-    </div>
     <div class="container hero-booking-wrap">
       <form class="booking-bar" id="hero-booking-form" action="#booking">
         <div class="booking-bar-title">
@@ -1553,6 +1536,31 @@
         </div>
         <button type="submit" class="booking-bar-submit">найти номер</button>
       </form>
+    </div>
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="section-label">База отдыха «Александровская»</div>
+        <h1>Отдых на Карельском перешейке</h1>
+        <p class="hero-lead">Уютные номера, русская баня и сауна, сап-борды и лодки. Тишина, комфорт и душевная атмосфера у озера.</p>
+        <p class="hero-location">д. Мамонтовка, Выборгский р-н · ~85 км от Санкт-Петербурга</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn">Забронировать номер</a>
+          <a href="#rooms" class="btn btn-outline">Смотреть номера</a>
+        </div>
+        <div class="hero-tags">
+          <span class="hero-tag">Озеро</span>
+          <span class="hero-tag">Баня и сауна</span>
+          <span class="hero-tag">С животными</span>
+          <span class="hero-tag">Парковка</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-bento">
+          <div class="hero-tile main"><span class="photo-mark ready">Ф2 · есть пример</span><span class="hero-tile-label">территория и озеро</span></div>
+          <div class="hero-tile"><span class="photo-mark">Ф3 · нужно</span><span class="hero-tile-label">номера</span></div>
+          <div class="hero-tile"><span class="photo-mark">Ф4 · нужно</span><span class="hero-tile-label">баня и сауна</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
