@@ -110,38 +110,19 @@ def main() -> None:
         f"url('{hero}') center/cover no-repeat;",
     )
 
-    logo_uri = file_data_uri(ASSETS / "logo.png") or logo()
-    html = html.replace('src="assets/logo.png"', f'src="{logo_uri}"')
-
-    hero_uri = get_hero_uri()
-    html = html.replace("url('assets/hero-bg.jpg')", f"url('{hero_uri}')")
-    html = html.replace('src="assets/hero-bg.jpg"', f'src="{hero_uri}"')
-
-    pier_uri = file_data_uri(ASSETS / "hero-pier.jpg") or photo("Пирс и озеро", w=600, h=900)
-    html = html.replace("url('assets/hero-pier.jpg')", f"url('{pier_uri}')")
-
-    asset_files = {
-        "assets/room-double-standard.jpg": ("Стандарт №15", ASSETS / "room-double-standard.jpg"),
-        "assets/room-comfort-24.jpg": ("Комфорт №24", ASSETS / "room-comfort-24.jpg"),
-        "assets/room-twin-33.jpg": ("Номер №33", ASSETS / "room-twin-33.jpg"),
-        "assets/sauna.jpg": ("Сауна", ASSETS / "sauna.jpg"),
-    }
-
-    for ref, (title, path) in asset_files.items():
-        uri = file_data_uri(path) or photo(title, w=600, h=360)
-        html = html.replace(ref, uri)
-        html = html.replace(f"image: '{ref}',", f"image: '{uri}',")
-
-    replacements = {
-        "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=600&q=80": photo("Озеро", w=600, h=480),
-        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80": photo("Номера", w=600, h=480),
-        "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80": photo("Баня и сауна", w=600, h=480),
-        "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80": photo("Двухкомнатный номер", w=600, h=360),
-        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80": photo("Семейные апартаменты", w=600, h=360),
-    }
-
-    for old, new in replacements.items():
-        html = html.replace(old, new)
+    asset_paths = sorted(
+        [p for p in ASSETS.iterdir() if p.suffix.lower() in {".jpg", ".jpeg", ".png"}],
+        key=lambda p: len(p.name),
+        reverse=True,
+    )
+    for path in asset_paths:
+        uri = file_data_uri(path)
+        if not uri:
+            if path.name == "logo.png":
+                uri = logo()
+            else:
+                continue
+        html = html.replace(f"assets/{path.name}", uri)
 
     html = html.replace(
         "<title>База отдыха «Александровская» — прототип</title>",

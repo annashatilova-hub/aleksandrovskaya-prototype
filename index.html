@@ -148,8 +148,18 @@
       border-radius: 12px;
       overflow: hidden;
       background: linear-gradient(145deg, #c5dede 0%, #8fb8b8 100%);
+      background-size: cover;
+      background-position: center;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-tile.has-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 45%, rgba(0, 0, 0, 0.45));
+      pointer-events: none;
     }
 
     .gallery-tile:hover {
@@ -163,6 +173,7 @@
       position: absolute;
       left: 14px;
       bottom: 14px;
+      z-index: 2;
       color: #fff;
       font-size: 13px;
       font-weight: 500;
@@ -174,30 +185,6 @@
       opacity: 0.85;
     }
 
-    .gallery-note {
-      border-radius: 12px;
-      border: 1px solid #e8e8e8;
-      background: #fff;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .gallery-note h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      line-height: 1.35;
-    }
-
-    .gallery-note p {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin: 0;
-      line-height: 1.55;
-    }
-
     @media (max-width: 900px) {
       .gallery-bento {
         grid-template-columns: 1fr 1fr;
@@ -205,7 +192,6 @@
       }
       .gallery-tile.tall { grid-row: span 1; min-height: 180px; }
       .gallery-tile { min-height: 140px; }
-      .gallery-note { grid-column: span 2; }
     }
 
     .news-grid {
@@ -645,6 +631,18 @@
         url('assets/hero-pier.jpg') center/cover no-repeat;
     }
 
+    .hero-tile.rooms {
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.35)),
+        url('assets/hero-rooms.jpg') center/cover no-repeat;
+    }
+
+    .hero-tile.sauna {
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.35)),
+        url('assets/hero-sauna.jpg') center/cover no-repeat;
+    }
+
     .hero-tile-label {
       position: absolute;
       left: 14px;
@@ -763,7 +761,7 @@
 
     .about-showcase {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       margin-top: 0;
     }
@@ -778,20 +776,20 @@
 
     .about-photo.lake {
       background:
-        linear-gradient(rgba(31, 82, 82, 0.1), rgba(31, 82, 82, 0.25)),
-        url('https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=600&q=80') center/cover no-repeat;
+        linear-gradient(rgba(31, 82, 82, 0.08), rgba(31, 82, 82, 0.2)),
+        url('assets/about-lake.jpg') center/cover no-repeat;
     }
 
     .about-photo.rooms {
       background:
-        linear-gradient(rgba(31, 82, 82, 0.1), rgba(31, 82, 82, 0.25)),
-        url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80') center/cover no-repeat;
+        linear-gradient(rgba(31, 82, 82, 0.08), rgba(31, 82, 82, 0.2)),
+        url('assets/about-rooms.jpg') center/cover no-repeat;
     }
 
     .about-photo.sauna {
       background:
-        linear-gradient(rgba(31, 82, 82, 0.1), rgba(31, 82, 82, 0.25)),
-        url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80') center/cover no-repeat;
+        linear-gradient(rgba(31, 82, 82, 0.08), rgba(31, 82, 82, 0.2)),
+        url('assets/about-sauna.jpg') center/cover no-repeat;
     }
 
     .about-text-card {
@@ -821,12 +819,55 @@
       margin: 0;
     }
 
+    .about-copy {
+      margin-top: 32px;
+    }
+
+    .about-lead {
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 24px;
+      max-width: 860px;
+    }
+
+    .about-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 40px;
+      margin-bottom: 24px;
+    }
+
+    .about-split h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 12px;
+    }
+
+    .about-split h3 + ul + h3 { margin-top: 20px; }
+
+    .about-split ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .about-split li { margin-bottom: 8px; }
+
+    .about-copy > p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      max-width: 860px;
+    }
+
     @media (max-width: 900px) {
       .about-showcase {
         grid-template-columns: 1fr 1fr;
       }
       .about-photo,
       .about-text-card { min-height: 240px; }
+      .about-split { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 560px) {
@@ -877,7 +918,8 @@
 
     .room-meta {
       display: flex;
-      gap: 16px;
+      flex-wrap: wrap;
+      gap: 8px 16px;
       font-size: 13px;
       color: var(--text-muted);
       margin-bottom: 12px;
@@ -1007,7 +1049,7 @@
 
     .service-feature {
       display: grid;
-      grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
       gap: 28px 40px;
       align-items: start;
       margin-bottom: 32px;
@@ -1018,19 +1060,104 @@
     .service-feature-media {
       position: relative;
       width: 100%;
-      max-width: 380px;
+      max-width: 480px;
       margin: 0;
+    }
+
+    .service-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .service-gallery-stage {
+      position: relative;
     }
 
     .service-feature img {
       width: 100%;
-      max-width: 380px;
-      min-height: 160px;
+      max-width: 480px;
+      min-height: 220px;
       aspect-ratio: 3 / 2;
       object-fit: cover;
       border-radius: 8px;
       display: block;
       background: var(--brand-light);
+    }
+
+    .service-gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(31, 82, 82, 0.92);
+      color: var(--white);
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .service-gallery-nav.prev { left: 10px; }
+    .service-gallery-nav.next { right: 10px; }
+
+    .service-gallery-count {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      background: rgba(31, 82, 82, 0.92);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .service-gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .service-gallery-hint {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .service-gallery-thumb {
+      padding: 0;
+      border: 2px solid #d5e4e4;
+      border-radius: 8px;
+      background: none;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .service-gallery-thumb img {
+      width: 100%;
+      max-width: none;
+      min-height: 0;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .service-gallery-thumb.active {
+      border-color: var(--brand);
+    }
+
+    .service-gallery-thumb:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
     }
 
     .service-feature-media figcaption {
@@ -1042,6 +1169,7 @@
       background: linear-gradient(to top, rgba(31, 82, 82, 0.82), rgba(31, 82, 82, 0));
       color: var(--white);
       border-radius: 0 0 8px 8px;
+      pointer-events: none;
     }
 
     .service-feature-title {
@@ -1082,6 +1210,7 @@
         border-top: 1px solid #e8e8e8;
       }
       .service-feature-media,
+      .service-gallery,
       .service-feature img {
         max-width: 100%;
       }
@@ -1176,6 +1305,52 @@
     }
 
     .promo-link:hover { text-decoration: underline; }
+
+    .promo-spoiler {
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .promo-spoiler > summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 16px;
+      padding: 20px 24px;
+    }
+
+    .promo-spoiler > summary::-webkit-details-marker,
+    .promo-spoiler > summary::marker { display: none; content: ''; }
+
+    .promo-spoiler-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .promo-spoiler-hint {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .promo-spoiler > summary::after {
+      content: '▾';
+      margin-left: auto;
+      color: var(--brand);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .promo-spoiler[open] > summary {
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .promo-spoiler[open] > summary::after { content: '▴'; }
+
+    .promo-spoiler-body { padding: 24px; }
 
     /* Promo detail page */
     .promo-page {
@@ -1289,7 +1464,13 @@
     }
 
     /* FAQ */
-    .faq-list { max-width: 720px; }
+    .faq-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 48px;
+      row-gap: 0;
+      max-width: none;
+    }
 
     .faq-item {
       border-bottom: 1px solid #e8e8e8;
@@ -1577,6 +1758,7 @@
     }
 
     @media (max-width: 768px) {
+      .faq-list { grid-template-columns: 1fr; }
       nav { display: none; }
       nav.open {
         display: flex;
@@ -1665,9 +1847,9 @@
   </header>
 
   <section class="hero">
-    <img class="hero-bg" src="assets/hero-bg.jpg" alt="" aria-hidden="true">
+    <img class="hero-bg" src="assets/hero-bg.jpg?v=pier" alt="" aria-hidden="true">
     <div class="hero-overlay" aria-hidden="true"></div>
-    <span class="photo-mark ready hero-bg-mark">Ф1 · фон главной · есть пример</span>
+    <span class="photo-mark ready hero-bg-mark">Ф1 · фон главной · есть</span>
     <div class="container hero-booking-wrap">
       <form class="booking-bar" id="hero-booking-form" action="#booking">
         <div class="booking-bar-title">
@@ -1726,9 +1908,9 @@
       </div>
       <div class="hero-visual">
         <div class="hero-bento">
-          <div class="hero-tile main"><span class="photo-mark ready">Ф2 · есть пример</span><span class="hero-tile-label">территория и озеро</span></div>
-          <div class="hero-tile"><span class="photo-mark">Ф3 · нужно</span><span class="hero-tile-label">номера</span></div>
-          <div class="hero-tile"><span class="photo-mark">Ф4 · нужно</span><span class="hero-tile-label">баня и сауна</span></div>
+          <div class="hero-tile main"><span class="photo-mark ready">Ф2 · есть</span><span class="hero-tile-label">территория и озеро</span></div>
+          <div class="hero-tile rooms"><span class="photo-mark ready">Ф3 · есть</span><span class="hero-tile-label">номера</span></div>
+          <div class="hero-tile sauna"><span class="photo-mark ready">Ф4 · есть</span><span class="hero-tile-label">баня и сауна</span></div>
         </div>
       </div>
     </div>
@@ -1738,16 +1920,41 @@
     <div class="container">
       <div class="about-head">
         <div class="section-label">О нас</div>
-        <h2>Мы позаботились о вашем комфорте</h2>
+        <h2>Отдых на берегу одного из красивейших озер Карельского перешейка</h2>
       </div>
       <div class="about-showcase">
-        <div class="about-photo lake" aria-label="Озеро и территория"><span class="photo-mark">Ф5 · нужно</span></div>
-        <div class="about-photo rooms" aria-label="Номера"><span class="photo-mark">Ф6 · нужно</span></div>
-        <div class="about-photo sauna" aria-label="Баня и сауна"><span class="photo-mark">Ф7 · нужно</span></div>
-        <div class="about-text-card">
-          <h3>Мы позаботились о вашем комфорте</h3>
-          <p>База отдыха на берегу одного из красивейших озёр Карельского перешейка. Уютные номера, баня и сауна, выход к воде, сап-борды и лодки. ~85 км от Санкт-Петербурга.</p>
+        <div class="about-photo lake" aria-label="Озеро и территория"><span class="photo-mark ready">Ф5 · есть</span></div>
+        <div class="about-photo rooms" aria-label="Номера"><span class="photo-mark ready">Ф6 · есть</span></div>
+        <div class="about-photo sauna" aria-label="Баня и сауна"><span class="photo-mark ready">Ф7 · есть</span></div>
+      </div>
+      <div class="about-copy">
+        <p class="about-lead">Приглашаем вас провести незабываемые выходные или отпуск в нашем уютном комплексе, расположенном в одном из самых живописных уголков Карельского перешейка. Мы предлагаем комфортное размещение на любой вкус:</p>
+        <div class="about-split">
+          <div>
+            <h3>Комфортное размещение</h3>
+            <ul>
+              <li>Одноместные номера — для спокойного, комфортного отдыха.</li>
+              <li>Двухместные номера — для уединённого отдыха вдвоём.</li>
+              <li>Номера с раздельными кроватями — для отдыха компаниями.</li>
+              <li>Просторные двухкомнатные номера и семейные апартаменты (54 кв. м) — для компаний или отдыха с детьми.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Восстановите силы и зарядитесь энергией</h3>
+            <ul>
+              <li>Настоящая русская баня и финская сауна — идеальное место для релаксации после насыщенного дня.</li>
+              <li>Ароматный травяной чай и уютная атмосфера.</li>
+            </ul>
+            <h3>Для тех, кто любит движение</h3>
+            <ul>
+              <li>Аренда лодок для водных прогулок.</li>
+              <li>САП-борды для новых впечатлений.</li>
+              <li>Настольный теннис, бильярд и волейбольное поле.</li>
+            </ul>
+          </div>
         </div>
+        <p>Для тех, кто любит готовить сам, есть уютная кухня-столовая — просторное и светлое помещение со всей необходимой техникой и посудой. Здесь удобно накрыть семейный обед, приготовить что-то своё или просто собраться компанией за чашкой чая. Пусть отдых будет удобным и по-домашнему тёплым!</p>
+        <p>Всего в 40 минутах езды находится прекрасный город Выборг. Проведите день, гуляя по его старинным улочкам, изучая средневековую архитектуру и наслаждаясь видами, а вечером возвращайтесь к нам — в тишину леса, к теплу бани и умиротворяющему покою природы. Наши цены приятно удивят, а искреннее гостеприимство сделает ваш отдых по-настоящему душевным.</p>
       </div>
     </div>
   </section>
@@ -1756,28 +1963,18 @@
     <div class="container">
       <div class="section-label">Проживание</div>
       <h2>Номера и апартаменты</h2>
-      <p class="section-intro">Комфортное размещение на любой вкус — от уединённого отдыха вдвоём до семейного отпуска с детьми.</p>
+      <p class="section-intro">18 номеров: одноместные и двухместные стандарты, комфорт с террасой, двухкомнатные и семейные апартаменты. С животными — доплата 1 000 ₽ за весь период, доп. кровать — 600 ₽/сутки.</p>
       <div class="rooms-grid">
         <article class="room-card">
-          <span class="photo-mark">Ф8 · нужно</span>
-          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Одноместный номер">
+          <span class="photo-mark ready">Ф8 · есть</span>
+          <img src="assets/room-single.jpg" alt="Одноместный стандарт">
           <div class="room-card-body">
-            <h3>Одноместный номер</h3>
-            <div class="room-meta"><span>1 гость</span><span>свой душ</span></div>
-            <p>Для спокойного, комфортного отдыха в уединении.</p>
-            <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
-          </div>
-        </article>
-        <article class="room-card">
-          <span class="photo-mark ready">Ф9 · есть</span>
-          <img src="assets/room-double-standard.jpg" alt="Двухместный номер стандарт №15">
-          <div class="room-card-body">
-            <h3>Двухместный номер стандарт №15</h3>
-            <div class="room-meta"><span>2 гостя</span><span>23 м²</span><span>вид на сад</span></div>
-            <p>Уютный стандартный двухместный номер с двуспальной кроватью и видом на лес.</p>
+            <h3>Одноместный стандарт</h3>
+            <div class="room-meta"><span>1–2 гостя</span><span>№ 11, 21, 28, 31, 38</span></div>
+            <p>Уютный, небольшой одноместный номер. Оборудован полутораспальной кроватью, есть возможность разместиться двум людям. Приготовление еды на общей кухне.</p>
             <div class="room-tags">
               <span class="room-tag">Душ</span>
+              <span class="room-tag">Санузел</span>
               <span class="room-tag">Холодильник</span>
               <span class="room-tag">Чайник</span>
               <span class="room-tag">Микроволновка</span>
@@ -1787,12 +1984,82 @@
           </div>
         </article>
         <article class="room-card">
-          <span class="photo-mark ready">Ф10 · есть</span>
-          <img src="assets/room-comfort-24.jpg" alt="Двухместный номер Комфорт №24">
+          <span class="photo-mark ready">Ф9 · есть</span>
+          <img src="assets/room-double-standard.jpg" alt="Двухместный стандарт">
           <div class="room-card-body">
-            <h3>Двухместный номер «Комфорт» №24</h3>
-            <div class="room-meta"><span>2 гостя</span><span>28 м²</span><span>вид на озеро</span></div>
-            <p>Комфортный номер с выходом на панорамную террасу и встроенной кухней.</p>
+            <h3>Двухместный стандарт</h3>
+            <div class="room-meta"><span>2 гостя</span><span>№ 15, 22, 23, 26, 27, 36</span></div>
+            <p>Уютный стандартный двухместный номер. Двуспальная кровать, душевая и санузел. Приготовление еды на общей кухне.</p>
+            <div class="room-tags">
+              <span class="room-tag">Двуспальная кровать</span>
+              <span class="room-tag">Душ</span>
+              <span class="room-tag">Санузел</span>
+              <span class="room-tag">Холодильник</span>
+              <span class="room-tag">Чайник</span>
+            </div>
+            <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <span class="photo-mark ready">Ф10 · есть</span>
+          <img src="assets/room-quad.jpg" alt="Двухместный стандарт на 4 гостей">
+          <div class="room-card-body">
+            <h3>Стандарт на 4 гостей</h3>
+            <div class="room-meta"><span>до 4 гостей</span><span>№ 12</span></div>
+            <p>Большой уютный номер с двумя кроватями — подходит для проживания 4 человек.</p>
+            <div class="room-tags">
+              <span class="room-tag">2 двуспальные</span>
+              <span class="room-tag">Душ</span>
+              <span class="room-tag">Холодильник</span>
+              <span class="room-tag">Чайник</span>
+            </div>
+            <div class="room-price">при бронировании</div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <span class="photo-mark ready">Ф11 · есть</span>
+          <img src="assets/room-triple.jpg" alt="Трёхместный стандарт">
+          <div class="room-card-body">
+            <h3>Трёхместный стандарт</h3>
+            <div class="room-meta"><span>3 гостя</span><span>№ 16</span></div>
+            <p>Уютный стандартный трёхместный номер. Три полутораспальные кровати, душевая и санузел. Приготовление еды на общей кухне.</p>
+            <div class="room-tags">
+              <span class="room-tag">3 кровати</span>
+              <span class="room-tag">Душ</span>
+              <span class="room-tag">Санузел</span>
+              <span class="room-tag">Холодильник</span>
+              <span class="room-tag">Чайник</span>
+            </div>
+            <div class="room-price">при бронировании</div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <span class="photo-mark ready">Ф12 · есть</span>
+          <img src="assets/room-twin-33.jpg" alt="Двухместный стандарт с двумя кроватями">
+          <div class="room-card-body">
+            <h3>Стандарт с двумя кроватями</h3>
+            <div class="room-meta"><span>2 гостя</span><span>№ 33</span></div>
+            <p>Двухместный уютный номер с двумя полутораспальными кроватями.</p>
+            <div class="room-tags">
+              <span class="room-tag">2 полутораспальные</span>
+              <span class="room-tag">Душ</span>
+              <span class="room-tag">Холодильник</span>
+              <span class="room-tag">Чайник</span>
+            </div>
+            <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
+            <a href="#booking" class="btn btn-outline">Забронировать</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <span class="photo-mark ready">Ф13 · есть</span>
+          <img src="assets/room-comfort-24.jpg" alt="Двухместный комфорт с террасой">
+          <div class="room-card-body">
+            <h3>Комфорт с террасой</h3>
+            <div class="room-meta"><span>2 гостя</span><span>№ 24, 25, 34, 35</span></div>
+            <p>Комфортный и уютный двухместный номер с выходом на террасу. Встроенная кухня, телевизор 43" с Smart TV и собственный выход к панорамной террасе (терраса на два номера). В № 35 — две полутораспальные кровати, в № 24, 25, 34 — одна двуспальная.</p>
             <div class="room-tags">
               <span class="room-tag">Терраса</span>
               <span class="room-tag">Smart TV</span>
@@ -1804,40 +2071,36 @@
           </div>
         </article>
         <article class="room-card">
-          <span class="photo-mark ready">Ф11 · есть</span>
-          <img src="assets/room-twin-33.jpg" alt="Двухместный номер с двумя полутораспальными кроватями №33">
+          <span class="photo-mark ready">Ф14 · есть</span>
+          <img src="assets/room-tworoom.jpg" alt="Двухкомнатный комфорт">
           <div class="room-card-body">
-            <h3>Двухместный номер №33</h3>
-            <div class="room-meta"><span>2 гостя</span><span>25 м²</span><span>вид на озеро</span></div>
-            <p>Уютный номер с двумя полутораспальными кроватями — удобно для друзей или коллег.</p>
+            <h3>Двухкомнатный «Комфорт +»</h3>
+            <div class="room-meta"><span>до 4 гостей</span><span>№ 32, 37</span></div>
+            <p>Уютный двухкомнатный номер «Комфорт +»: двуспальная кровать и раскладной диван во второй комнате, кухня с плитой и посудой, телевизор 43" с Smart TV.</p>
             <div class="room-tags">
-              <span class="room-tag">2 кровати</span>
+              <span class="room-tag">2 комнаты</span>
+              <span class="room-tag">Кухня</span>
+              <span class="room-tag">Плита</span>
+              <span class="room-tag">Smart TV</span>
               <span class="room-tag">Душ</span>
-              <span class="room-tag">Холодильник</span>
-              <span class="room-tag">С животными</span>
             </div>
-            <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
-          </div>
-        </article>
-        <article class="room-card">
-          <span class="photo-mark">Ф12 · нужно</span>
-          <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80" alt="Двухкомнатный номер">
-          <div class="room-card-body">
-            <h3>Двухкомнатный номер</h3>
-            <div class="room-meta"><span>до 4 гостей</span><span>2 комнаты</span></div>
-            <p>Просторный номер для семьи или небольшой компании.</p>
             <div class="room-price">от 5 000 ₽ <span>/ ночь</span></div>
             <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
         </article>
         <article class="room-card">
-          <span class="photo-mark">Ф13 · нужно</span>
-          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" alt="Семейные апартаменты">
+          <span class="photo-mark ready">Ф15 · есть</span>
+          <img src="assets/room-family.jpg" alt="Двухкомнатный комфорт big size">
           <div class="room-card-body">
-            <h3>Семейные апартаменты</h3>
-            <div class="room-meta"><span>до 6 гостей</span><span>54 м²</span></div>
-            <p>Просторные апартаменты с кухней — идеально для отдыха с детьми.</p>
+            <h3>Комфорт big size</h3>
+            <div class="room-meta"><span>семья / компания</span><span>53 м²</span><span>№ 13</span></div>
+            <p>Комфортный двухкомнатный номер big size: одна комната с двумя большими двуспальными кроватями, вторая с раскладным диваном и кухней (53 кв. м). Отдельный выход на панорамную террасу — смежная с общей кухней, в ней досуговый уголок: настольный футбол, игрушки для детей, стол, диван и кресла.</p>
+            <div class="room-tags">
+              <span class="room-tag">53 м²</span>
+              <span class="room-tag">Терраса</span>
+              <span class="room-tag">Кухня</span>
+              <span class="room-tag">Smart TV</span>
+            </div>
             <div class="room-price">от 6 500 ₽ <span>/ ночь</span></div>
             <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
@@ -1848,8 +2111,13 @@
 
   <section id="promo">
     <div class="container">
-      <div class="section-label">Акции</div>
-      <h2>Спецпредложения</h2>
+      <details class="promo-spoiler">
+        <summary>
+          <span class="section-label">Акции</span>
+          <span class="promo-spoiler-title">Спецпредложения</span>
+          <span class="promo-spoiler-hint">черновик условий — раскрыть</span>
+        </summary>
+        <div class="promo-spoiler-body">
       <p class="section-intro">Выгодные условия для гостей базы отдыха. Тексты и условия — уточнить у заказчика.</p>
       <div class="promo-grid">
         <article class="promo-card">
@@ -1914,8 +2182,8 @@
             <li>Доступно только для гостей с действующим бронированием номера</li>
             <li>Специальная цена на баню и/или сауну — уточнить</li>
             <li>Тариф выбирается при бронировании или на ресепшене — уточнить</li>
-            <li>Сауна: от 3 000 ₽ / 2 часа (см. <a href="#services">прайс сауны</a>)</li>
-            <li>Баня: стоимость и условия — уточнить у заказчика</li>
+            <li>Сауна: первые 2 часа — 3 000 ₽, далее 1 200 ₽/час (см. <a href="#services">прайс</a>)</li>
+            <li>Баня: 2 часа — 3 500 ₽ будни / 3 900 ₽ выходные, далее 1 000 / 1 200 ₽/час; банный набор 300 ₽, травяной чай в подарок</li>
           </ul>
         </div>
         <div class="promo-actions">
@@ -1944,6 +2212,8 @@
           <a href="#booking" class="btn">Забронировать</a>
         </div>
       </div>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -1960,13 +2230,13 @@
           <div class="service-icon">♨</div>
           <div class="service-item-text">
             <h3>Русская баня</h3>
-            <p>Настоящая баня с травяным чаем и уютной атмосферой</p>
+            <p>2 часа: 3 500 ₽ будни / 3 900 ₽ выходные</p>
           </div>
         </div>
         <div class="service-item" data-service="sauna" role="button" tabindex="0">
           <div class="service-icon">💧</div>
           <div class="service-item-text">
-            <h3>Сауна с джакузи</h3>
+            <h3>Сауна</h3>
             <p>от 3 000 ₽ / 2 часа · далее 1 200 ₽/час</p>
           </div>
         </div>
@@ -1974,42 +2244,14 @@
           <div class="service-icon">🏄</div>
           <div class="service-item-text">
             <h3>Сап-борды и лодки</h3>
-            <p>Прогулки по озеру и активный отдых на воде</p>
-          </div>
-        </div>
-        <div class="service-item" data-service="billiard" role="button" tabindex="0">
-          <div class="service-icon">🎱</div>
-          <div class="service-item-text">
-            <h3>Бильярд и теннис</h3>
-            <p>Комната с бильярдом и настольный теннис</p>
-          </div>
-        </div>
-        <div class="service-item" data-service="volleyball" role="button" tabindex="0">
-          <div class="service-icon">🏐</div>
-          <div class="service-item-text">
-            <h3>Волейбольное поле</h3>
-            <p>Активные игры на свежем воздухе</p>
+            <p>Сап от 500 ₽/час · лодка от 400 ₽/час</p>
           </div>
         </div>
         <div class="service-item" data-service="playground" role="button" tabindex="0">
           <div class="service-icon">🧒</div>
           <div class="service-item-text">
             <h3>Детская площадка</h3>
-            <p>Безопасное пространство для маленьких гостей</p>
-          </div>
-        </div>
-        <div class="service-item" data-service="bbq" role="button" tabindex="0">
-          <div class="service-icon">🔥</div>
-          <div class="service-item-text">
-            <h3>Мангальные зоны</h3>
-            <p>Беседки с мангалами для отдыха на природе</p>
-          </div>
-        </div>
-        <div class="service-item" data-service="banquet" role="button" tabindex="0">
-          <div class="service-icon">🎉</div>
-          <div class="service-item-text">
-            <h3>Банкетный зал</h3>
-            <p>Проведение мероприятий и праздников</p>
+            <p>Безопасные игровые элементы и мягкое покрытие</p>
           </div>
         </div>
       </div>
@@ -2022,17 +2264,13 @@
       <div class="section-label">Галерея</div>
       <h2>Узнайте базу ближе: интерьеры, виды и атмосфера</h2>
       <div class="gallery-bento">
-        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф14 · нужно</span><span class="gallery-tile-label">территория</span></div>
-        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф15 · нужно</span><span class="gallery-tile-label">озеро</span></div>
-        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф16 · нужно</span><span class="gallery-tile-label">номера</span></div>
-        <div class="gallery-tile tall" title="Перейти в галерею"><span class="photo-mark">Ф17 · нужно</span><span class="gallery-tile-label">интерьер</span></div>
-        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф18 · нужно</span><span class="gallery-tile-label">баня и сауна</span></div>
-        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф19 · нужно</span><span class="gallery-tile-label">сап-борды</span></div>
-        <div class="gallery-tile" title="Перейти в галерею"><span class="photo-mark">Ф20 · нужно</span><span class="gallery-tile-label">отдых на природе</span></div>
-        <div class="gallery-note">
-          <h3>Наведите на фото — перейдёте в галерею</h3>
-          <p>Здесь будут фото номеров, бани, территории и озера. На Tilda каждая плитка ведёт на страницу <code>/gallery</code> или открывает увеличенное фото.</p>
-        </div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-territory.jpg')"><span class="photo-mark ready">Ф16 · есть</span><span class="gallery-tile-label">территория</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-lake.jpg')"><span class="photo-mark ready">Ф17 · есть</span><span class="gallery-tile-label">озеро</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-rooms.jpg')"><span class="photo-mark ready">Ф18 · есть</span><span class="gallery-tile-label">номера</span></div>
+        <div class="gallery-tile tall has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-interior.jpg?v=sunroom')"><span class="photo-mark ready">Ф19 · есть</span><span class="gallery-tile-label">панорамная веранда</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-sauna.jpg')"><span class="photo-mark ready">Ф20 · есть</span><span class="gallery-tile-label">баня и сауна</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-sup.jpg')"><span class="photo-mark ready">Ф21 · есть</span><span class="gallery-tile-label">лаунж-зона с очагом</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-nature.jpg')"><span class="photo-mark ready">Ф22 · есть</span><span class="gallery-tile-label">отдых на природе</span></div>
       </div>
     </div>
   </section>
@@ -2089,7 +2327,7 @@
           <div class="news-card-body">
             <div class="news-date">Февраль 2026</div>
             <h3>Обновлённый прайс на сауну</h3>
-            <p>Актуальные цены на аренду сауны с джакузи на сезон январь–апрель 2026 года.</p>
+            <p>Актуальные цены на аренду сауны на сезон январь–апрель 2026 года.</p>
             <a href="#promo-banya-sauna-detail">Читать далее →</a>
           </div>
         </article>
@@ -2133,8 +2371,12 @@
       <h2>Частые вопросы</h2>
       <div class="faq-list">
         <div class="faq-item">
-          <h3>Можно ли с животными?</h3>
-          <p>Да, мы принимаем гостей с животными за дополнительную плату.</p>
+      <h3>Можно ли с животными?</h3>
+      <p>Да, доплата 1 000 ₽ за весь период пребывания.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Можно ли дополнительную кровать?</h3>
+          <p>Да, в каждый номер есть возможность установить доп. кровать — 600 ₽/сутки.</p>
         </div>
         <div class="faq-item">
           <h3>Есть ли парковка?</h3>
@@ -2146,7 +2388,7 @@
         </div>
         <div class="faq-item">
           <h3>Есть ли кухня?</h3>
-          <p>В части номеров — кухонный уголок. Также есть общая кухня с панорамной террасой.</p>
+          <p>Да. Для тех, кто любит готовить сам, есть уютная кухня-столовая — просторное и светлое помещение со всей необходимой техникой и посудой. Здесь удобно накрыть семейный обед, приготовить что-то своё или просто собраться компанией за чашкой чая. В части номеров (комфорт с террасой, «Комфорт +», big size) — встроенная кухня.</p>
         </div>
         <div class="faq-item">
           <h3>Можно ли порыбачить?</h3>
@@ -2194,8 +2436,6 @@
             <div class="social-links">
               <a href="https://vk.com/ohota_rybalka_aleksandrovskaya" class="social-link" target="_blank" rel="noopener">ВКонтакте</a>
               <a href="#" class="social-link" title="Ссылку на Max уточнить">Max</a>
-              <a href="tel:+79990215060" class="social-link">+7 (999) 021-50-60</a>
-              <a href="https://alexandrovskaya.clients.site/" class="social-link" target="_blank" rel="noopener">Яндекс</a>
             </div>
           </div>
         </div>
@@ -2255,80 +2495,95 @@
       banya: {
         label: 'Релакс',
         title: 'Русская баня',
-        alt: 'Русская баня',
-        description: 'Настоящая русская баня с травяным чаем и уютной атмосферой. Идеальное место для восстановления сил после активного дня на озере.',
+        image: 'assets/banya-1.jpg',
+        images: ['assets/banya-1.jpg', 'assets/banya-2.jpg', 'assets/banya-3.jpg'],
+        alt: 'Русская дровяная баня',
+        description: 'Погрузитесь в атмосферу настоящей русской традиции — приглашаем вас в нашу дровяную баню, где тепло и аромат живого огня создают особое настроение для отдыха и перезагрузки. Здесь можно забыть о суете и по-настоящему расслабиться: мягкий жар, запах дерева и ощущение уюта помогут восстановить силы и подарить приятные эмоции.',
         priceTitle: 'Аренда бани',
-        prices: ['Стоимость и условия — уточнить у заказчика'],
-        note: 'Фото и прайс — добавить при получении от заказчика.'
+        prices: [
+          'Посещение бани — 2 часа: <strong>3 500 ₽</strong> в будни, <strong>3 900 ₽</strong> в выходные',
+          'Каждый последующий час: <strong>1 000 ₽</strong> в будни, <strong>1 200 ₽</strong> в выходные',
+          'Банный набор — <strong>300 ₽</strong>',
+          'Ароматный травяной чай — в подарок (мята, чабрец и душица)'
+        ],
+        note: 'Позвольте себе настоящий отдых — в гармонии с традициями и заботой о вашем комфорте.'
       },
       sauna: {
         label: 'Аренда',
-        title: 'Сауна с джакузи',
-        image: 'assets/sauna.jpg',
-        alt: 'Сауна с джакузи',
-        description: 'Финская сауна с джакузи, зона отдыха с деревянной мебелью. Идеальное место для релаксации после насыщенного дня.',
+        title: 'Сауна',
+        image: 'assets/sauna-1.jpg',
+        images: ['assets/sauna-1.jpg', 'assets/sauna-2.jpg', 'assets/sauna-3.jpg'],
+        alt: 'Сауна',
+        description: 'Приглашаем вас в нашу новую сауну — место, где тепло и уют помогают забыть о суете и по-настоящему расслабиться.',
         priceTitle: 'Аренда сауны',
         prices: [
           'Первые 2 часа — <strong>3 000 ₽</strong>',
-          'Последующий час — <strong>1 200 ₽</strong>/час'
+          'Каждый последующий час — <strong>1 200 ₽</strong>'
         ],
-        note: '* Цены актуальны на сезон январь–апрель 2026 года.'
+        note: 'Позвольте себе немного заботы о себе — окунитесь в атмосферу покоя и восстановления!'
       },
       sup: {
         label: 'Активный отдых',
         title: 'Сап-борды и лодки',
-        alt: 'Сап-борды на озере',
-        description: 'Прогулки по озеру Александровское на сап-бордах и лодках. Новые впечатления и активный отдых на воде.',
+        image: 'assets/sup.jpg',
+        alt: 'Сап-борды и лодки',
+        description: 'Откройте для себя радость водных приключений — у нас можно арендовать сапборды и лодки для прогулки по воде в своём ритме. Сапборд идеален для спокойных заплывов, эффектных фото и лёгкой тренировки: доски устойчивые, перед стартом короткий инструктаж, в комплекте весло, страховочный лиш и спасательный жилет. Лодка — неспешная прогулка вдвоём или втроём: можно любоваться пейзажами, устроить мини-пикник на воде или порыбачить.',
         priceTitle: 'Прокат',
-        prices: ['Стоимость проката — уточнить у заказчика'],
-        note: ''
-      },
-      billiard: {
-        label: 'Развлечения',
-        title: 'Бильярд и настольный теннис',
-        alt: 'Бильярд',
-        description: 'Комната с бильярдом и настольный теннис на территории базы. Отличный досуг в любую погоду.',
-        priceTitle: '',
-        prices: ['Доступно для гостей базы'],
-        note: ''
-      },
-      volleyball: {
-        label: 'Спорт',
-        title: 'Волейбольное поле',
-        alt: 'Волейбольное поле',
-        description: 'Волейбольное поле на свежем воздухе — активные игры для компаний и семей.',
-        priceTitle: '',
-        prices: ['Бесплатно для проживающих'],
-        note: ''
+        prices: [
+          'Сапборд: 1 час — <strong>500 ₽</strong>, 3 часа — <strong>1 400 ₽</strong>',
+          'Лодка: 1 час — <strong>400 ₽</strong>, 6 часов — <strong>1 800 ₽</strong>'
+        ],
+        note: 'Лодки безопасные, устойчивые и простые в управлении. Сап подойдёт и новичкам, и опытным райдерам.'
       },
       playground: {
         label: 'Для детей',
         title: 'Детская площадка',
+        image: 'assets/playground.jpg',
         alt: 'Детская площадка',
-        description: 'Оборудованная детская площадка — безопасное и весёлое пространство для маленьких гостей.',
+        description: 'На территории базы создана комфортная среда для отдыха всей семьёй. Для маленьких гостей оборудована детская площадка: безопасные игровые элементы, мягкое покрытие и пространство, где дети могут активно и беззаботно проводить время под присмотром родителей.',
         priceTitle: '',
         prices: ['Бесплатно для гостей базы'],
         note: ''
-      },
-      bbq: {
-        label: 'Отдых на природе',
-        title: 'Мангальные зоны',
-        alt: 'Мангальная зона',
-        description: 'Беседки с мангалами для отдыха на природе. Можно приготовить шашлык и провести время у воды.',
-        priceTitle: '',
-        prices: ['Беседки для гостей базы'],
-        note: ''
-      },
-      banquet: {
-        label: 'Мероприятия',
-        title: 'Банкетный зал',
-        alt: 'Банкетный зал',
-        description: 'Банкетный зал для проведения мероприятий, праздников и корпоративных встреч.',
-        priceTitle: 'Аренда зала',
-        prices: ['Условия и стоимость — по запросу'],
-        note: 'Связаться: +7 (999) 021-50-60'
       }
     };
+
+    function bindServiceGallery(root, images, alt) {
+      let index = 0;
+      const main = root.querySelector('.service-gallery-main');
+      const count = root.querySelector('.service-gallery-count');
+      const thumbs = [...root.querySelectorAll('.service-gallery-thumb')];
+      const show = (next) => {
+        index = (next + images.length) % images.length;
+        main.src = images[index];
+        main.alt = alt + ' — фото ' + (index + 1);
+        if (count) count.textContent = (index + 1) + ' / ' + images.length;
+        thumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === index));
+      };
+      root.querySelector('.service-gallery-nav.prev').addEventListener('click', (e) => {
+        e.preventDefault();
+        show(index - 1);
+      });
+      root.querySelector('.service-gallery-nav.next').addEventListener('click', (e) => {
+        e.preventDefault();
+        show(index + 1);
+      });
+      thumbs.forEach((thumb, i) => {
+        thumb.addEventListener('click', (e) => {
+          e.preventDefault();
+          show(i);
+        });
+      });
+      root.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          show(index - 1);
+        }
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          show(index + 1);
+        }
+      });
+    }
 
     function renderServiceDetail(key) {
       const data = servicesData[key];
@@ -2340,18 +2595,38 @@
            <ul class="service-price-list">${data.prices.map(p => `<li>${p}</li>`).join('')}</ul>`
         : '';
 
-      const imgSrc = data.image || servicePlaceholder(data.alt);
       const fallback = servicePlaceholder(data.alt);
-      const hint = data.image ? '' : '<span class="service-feature-hint">Заглушка — фото от заказчика</span>';
+      const slides = (data.images && data.images.length) ? data.images : (data.image ? [data.image] : []);
+      const hasSlider = slides.length > 1;
+      const hint = slides.length ? '' : '<span class="service-feature-hint">Заглушка — фото от заказчика</span>';
+      const imgSrc = slides[0] || fallback;
+
+      const mediaHtml = hasSlider
+        ? `<figure class="service-feature-media service-gallery" tabindex="0" aria-label="${data.title}: ${slides.length} фото, листайте стрелками">
+            <div class="service-gallery-stage">
+              <img class="service-gallery-main" src="${imgSrc}" alt="${data.alt} — фото 1" onerror="this.onerror=null;this.src='${fallback}'">
+              <button type="button" class="service-gallery-nav prev" aria-label="Предыдущее фото">‹</button>
+              <button type="button" class="service-gallery-nav next" aria-label="Следующее фото">›</button>
+              <span class="service-gallery-count">1 / ${slides.length}</span>
+              <figcaption>
+                <span class="service-feature-title">${data.title}</span>
+              </figcaption>
+            </div>
+            <div class="service-gallery-thumbs">
+              ${slides.map((src, i) => `<button type="button" class="service-gallery-thumb${i === 0 ? ' active' : ''}" aria-label="Фото ${i + 1} из ${slides.length}"><img src="${src}" alt=""></button>`).join('')}
+            </div>
+            <p class="service-gallery-hint">${slides.length} фото — листайте стрелками или миниатюрами</p>
+          </figure>`
+        : `<figure class="service-feature-media">
+            <img src="${imgSrc}" alt="${data.alt}" onerror="this.onerror=null;this.src='${fallback}'">
+            <figcaption>
+              <span class="service-feature-title">${data.title}</span>
+              ${hint}
+            </figcaption>
+          </figure>`;
 
       detail.innerHTML = `
-        <figure class="service-feature-media">
-          <img src="${imgSrc}" alt="${data.alt}" onerror="this.onerror=null;this.src='${fallback}'">
-          <figcaption>
-            <span class="service-feature-title">${data.title}</span>
-            ${hint}
-          </figcaption>
-        </figure>
+        ${mediaHtml}
         <div class="service-feature-body">
           <div class="section-label">${data.label}</div>
           <h3>${data.title}</h3>
@@ -2360,6 +2635,10 @@
           ${data.note ? `<p class="service-price-note">${data.note}</p>` : ''}
         </div>
       `;
+
+      if (hasSlider) {
+        bindServiceGallery(detail.querySelector('.service-gallery'), slides, data.alt);
+      }
     }
 
     document.querySelectorAll('.service-item[data-service]').forEach(item => {
@@ -2367,6 +2646,8 @@
         document.querySelectorAll('.service-item').forEach(el => el.classList.remove('active'));
         item.classList.add('active');
         renderServiceDetail(item.dataset.service);
+        const panel = document.getElementById('service-detail');
+        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
       };
       item.addEventListener('click', select);
       item.addEventListener('keydown', e => {
@@ -2378,6 +2659,17 @@
     });
 
     renderServiceDetail('banya');
+
+    const promoSpoiler = document.querySelector('#promo .promo-spoiler');
+    const openPromoIfTarget = () => {
+      if (!promoSpoiler || !location.hash) return;
+      const id = location.hash.slice(1);
+      if (id === 'promo' || promoSpoiler.querySelector(location.hash)) {
+        promoSpoiler.open = true;
+      }
+    };
+    openPromoIfTarget();
+    window.addEventListener('hashchange', openPromoIfTarget);
 
     const routeContent = {
       car: `
@@ -2500,9 +2792,9 @@
       });
 
       const mockRooms = [
-        { name: 'Двухместный номер стандарт №15', meta: '23 м² · 2 гостя', price: 'от 2 900 ₽' },
-        { name: 'Двухместный номер «Комфорт» №24', meta: '28 м² · терраса · вид на озеро', price: 'от 3 500 ₽' },
-        { name: 'Двухместный номер №33', meta: '25 м² · 2 кровати · вид на озеро', price: 'от 2 900 ₽' }
+        { name: 'Двухместный стандарт №15', meta: '2 гостя · душ · общая кухня', price: 'от 2 900 ₽' },
+        { name: 'Комфорт с террасой №24', meta: 'терраса · кухня · Smart TV', price: 'от 3 500 ₽' },
+        { name: 'Комфорт big size №13', meta: '53 м² · 2 комнаты · терраса', price: 'от 6 500 ₽' }
       ];
 
       form.addEventListener('submit', e => {
