@@ -154,6 +154,10 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
+    .gallery-tile.has-photo {
+      background-image: var(--tile-photo);
+    }
+
     .gallery-tile.has-photo::after {
       content: '';
       position: absolute;
@@ -289,6 +293,13 @@
       align-items: stretch;
       justify-content: flex-start;
       background: #dce4e8;
+    }
+
+    .hero > picture {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: block;
     }
 
     .hero-bg {
@@ -626,21 +637,27 @@
 
     .hero-tile.main {
       grid-row: span 2;
+      --tile-photo: url('assets/hero-pier.jpg');
+      /* мобильный кроп: --tile-photo-mobile: url('assets/hero-pier-mobile.jpg'); */
       background:
         linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.28)),
-        url('assets/hero-pier.jpg') center/cover no-repeat;
+        var(--tile-photo) center/cover no-repeat;
     }
 
     .hero-tile.rooms {
+      --tile-photo: url('assets/hero-rooms.jpg');
+      /* мобильный кроп: --tile-photo-mobile: url('assets/hero-rooms-mobile.jpg'); */
       background:
         linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.35)),
-        url('assets/hero-rooms.jpg') center/cover no-repeat;
+        var(--tile-photo) center/cover no-repeat;
     }
 
     .hero-tile.sauna {
+      --tile-photo: url('assets/hero-sauna.jpg');
+      /* мобильный кроп: --tile-photo-mobile: url('assets/hero-sauna-mobile.jpg'); */
       background:
         linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.35)),
-        url('assets/hero-sauna.jpg') center/cover no-repeat;
+        var(--tile-photo) center/cover no-repeat;
     }
 
     .hero-tile-label {
@@ -1550,10 +1567,10 @@
 
     .booking-block h2 { color: var(--white); margin-bottom: 16px; }
 
-    .booking-block p {
+    .booking-block > .container > p {
       opacity: 0.9;
       margin-bottom: 32px;
-      max-width: 500px;
+      max-width: 560px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -1568,14 +1585,247 @@
     }
 
     .booking-mock {
-      background: var(--white);
+      display: none;
+    }
+
+    .bnovo-widget {
+      background: #fff;
+      color: #242742;
       border-radius: 8px;
-      padding: 40px;
-      max-width: 600px;
-      margin: 40px auto 0;
-      color: var(--text-muted);
+      max-width: 880px;
+      margin: 8px auto 0;
+      text-align: left;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
       font-size: 14px;
-      border: 2px dashed rgba(255,255,255,0.4);
+    }
+
+    .bnovo-widget-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: #f4f6f8;
+      border-bottom: 1px solid #e4e7ec;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .bnovo-widget-bar strong {
+      color: #1875f0;
+      font-weight: 600;
+    }
+
+    .bnovo-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid #e4e7ec;
+    }
+
+    .bnovo-step {
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #9aa3af;
+      background: #fafbfc;
+    }
+
+    .bnovo-step.is-active {
+      color: #1875f0;
+      background: #fff;
+      box-shadow: inset 0 -2px 0 #1875f0;
+    }
+
+    .bnovo-search {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.1fr auto;
+      gap: 10px;
+      padding: 16px;
+      border-bottom: 1px solid #eef0f3;
+      align-items: end;
+    }
+
+    .bnovo-field label {
+      display: block;
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .bnovo-field input,
+    .bnovo-field select {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #c6cad3;
+      border-radius: 6px;
+      padding: 0 10px;
+      font-family: inherit;
+      font-size: 14px;
+      color: #242742;
+      background: #fff;
+    }
+
+    .bnovo-search-submit {
+      height: 40px;
+      padding: 0 18px;
+      border: none;
+      border-radius: 6px;
+      background: #1875f0;
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .bnovo-search-submit:hover { background: #1850d2; }
+
+    .bnovo-rooms {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .bnovo-room {
+      display: grid;
+      grid-template-columns: 148px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid #e4e7ec;
+      border-radius: 8px;
+    }
+
+    .bnovo-room img {
+      width: 148px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .bnovo-room h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: #242742;
+    }
+
+    .bnovo-room p {
+      margin: 0;
+      font-size: 12px;
+      color: #6b7280;
+      opacity: 1;
+      max-width: none;
+    }
+
+    .bnovo-room-price {
+      text-align: right;
+      min-width: 132px;
+    }
+
+    .bnovo-room-price strong {
+      display: block;
+      font-size: 18px;
+      color: #242742;
+      margin-bottom: 2px;
+    }
+
+    .bnovo-room-price span {
+      display: block;
+      font-size: 11px;
+      color: #9aa3af;
+      margin-bottom: 10px;
+    }
+
+    .bnovo-room-price button,
+    .bnovo-next,
+    .bnovo-pay {
+      height: 36px;
+      padding: 0 14px;
+      border: none;
+      border-radius: 6px;
+      background: #1875f0;
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .bnovo-room-price button:hover,
+    .bnovo-next:hover,
+    .bnovo-pay:hover { background: #1850d2; }
+
+    .bnovo-panel {
+      padding: 18px 16px 20px;
+    }
+
+    .bnovo-panel h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .bnovo-panel .bnovo-room-meta {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .bnovo-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .bnovo-form-grid .bnovo-field.wide { grid-column: 1 / -1; }
+
+    .bnovo-pay-methods {
+      display: grid;
+      gap: 8px;
+      margin: 12px 0 16px;
+    }
+
+    .bnovo-pay-method {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid #e4e7ec;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .bnovo-pay-method input { accent-color: #1875f0; }
+
+    .bnovo-done {
+      text-align: center;
+      padding: 28px 16px 8px;
+    }
+
+    .bnovo-done strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .bnovo-back {
+      background: none;
+      border: none;
+      color: #1875f0;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      margin-right: 12px;
+    }
+
+    .bnovo-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     /* Contacts */
@@ -1793,10 +2043,35 @@
       .hero {
         padding: 16px 16px 32px;
       }
-      .hero-booking-wrap {
-        margin-bottom: 24px;
+      /* Своя раскладка бронирования — на телефоне прячем, остаётся кнопка «Забронировать» */
+      .hero-booking-wrap,
+      .booking-bar,
+      #hero-booking-form {
+        display: none;
+      }
+      /* Мобильные кропы: положить *-mobile.jpg и задать --tile-photo-mobile. Пока тот же файл. */
+      .hero-tile.main,
+      .hero-tile.rooms,
+      .hero-tile.sauna {
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.35)),
+          var(--tile-photo-mobile, var(--tile-photo));
+      }
+      .gallery-tile.has-photo {
+        background-image: var(--tile-photo-mobile, var(--tile-photo));
       }
       .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+      .bnovo-search { grid-template-columns: 1fr 1fr; }
+      .bnovo-search-submit { grid-column: 1 / -1; width: 100%; }
+      .bnovo-room { grid-template-columns: 1fr; }
+      .bnovo-room img { width: 100%; height: 160px; }
+      .bnovo-room-price { text-align: left; }
+      .bnovo-room-price button,
+      .bnovo-next,
+      .bnovo-pay { width: 100%; }
+      .bnovo-form-grid { grid-template-columns: 1fr; }
+      .bnovo-actions { display: grid; gap: 10px; }
+      .bnovo-back { margin: 0; text-align: left; }
     }
 
     @media (max-width: 560px) {
@@ -1847,7 +2122,11 @@
   </header>
 
   <section class="hero">
-    <img class="hero-bg" src="assets/hero-bg.jpg?v=pier" alt="" aria-hidden="true">
+    <picture>
+      <!-- Мобильный кроп Ф1: положить assets/hero-bg-mobile.jpg и заменить srcset. Пока тот же файл. -->
+      <source media="(max-width: 768px)" srcset="assets/hero-bg.jpg?v=pier">
+      <img class="hero-bg" src="assets/hero-bg.jpg?v=pier" alt="" aria-hidden="true">
+    </picture>
     <div class="hero-overlay" aria-hidden="true"></div>
     <span class="photo-mark ready hero-bg-mark">Ф1 · фон главной · есть</span>
     <div class="container hero-booking-wrap">
@@ -2264,13 +2543,13 @@
       <div class="section-label">Галерея</div>
       <h2>Узнайте базу ближе: интерьеры, виды и атмосфера</h2>
       <div class="gallery-bento">
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-territory.jpg')"><span class="photo-mark ready">Ф16 · есть</span><span class="gallery-tile-label">территория</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-lake.jpg')"><span class="photo-mark ready">Ф17 · есть</span><span class="gallery-tile-label">озеро</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-rooms.jpg')"><span class="photo-mark ready">Ф18 · есть</span><span class="gallery-tile-label">номера</span></div>
-        <div class="gallery-tile tall has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-interior.jpg?v=sunroom')"><span class="photo-mark ready">Ф19 · есть</span><span class="gallery-tile-label">панорамная веранда</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-sauna.jpg')"><span class="photo-mark ready">Ф20 · есть</span><span class="gallery-tile-label">баня и сауна</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-sup.jpg')"><span class="photo-mark ready">Ф21 · есть</span><span class="gallery-tile-label">лаунж-зона с очагом</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="background-image:url('assets/gallery-nature.jpg')"><span class="photo-mark ready">Ф22 · есть</span><span class="gallery-tile-label">отдых на природе</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-territory.jpg')"><span class="photo-mark ready">Ф16 · есть</span><span class="gallery-tile-label">территория</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-lake.jpg')"><span class="photo-mark ready">Ф17 · есть</span><span class="gallery-tile-label">озеро</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-rooms.jpg')"><span class="photo-mark ready">Ф18 · есть</span><span class="gallery-tile-label">номера</span></div>
+        <div class="gallery-tile tall has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-interior.jpg?v=sunroom')"><span class="photo-mark ready">Ф19 · есть</span><span class="gallery-tile-label">панорамная веранда</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-sauna.jpg')"><span class="photo-mark ready">Ф20 · есть</span><span class="gallery-tile-label">баня и сауна</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-sup.jpg')"><span class="photo-mark ready">Ф21 · есть</span><span class="gallery-tile-label">лаунж-зона с очагом</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-nature.jpg')"><span class="photo-mark ready">Ф22 · есть</span><span class="gallery-tile-label">отдых на природе</span></div>
       </div>
     </div>
   </section>
@@ -2401,11 +2680,79 @@
   <section id="booking" class="booking-block">
     <div class="container">
       <h2>Забронировать номер</h2>
-      <p>Макет страницы /booking: гость выбирает даты на главной — здесь открывается модуль Бnovo с наличием. На живом сайте будет тот же каталог, что сейчас на reservationsteps.ru.</p>
-      <div class="booking-mock" id="booking-summary">
-        Выберите даты в полоске на главной и нажмите «найти номер».
+      <p>Так будет выглядеть модуль Bnovo на странице /booking: даты, наличие, выбор номера и оплата. На живом сайте подключится тот же движок, что сейчас на reservationsteps.ru.</p>
+      <div class="bnovo-widget" id="booking-summary">
+        <div class="bnovo-widget-bar">
+          <strong>Bnovo</strong>
+          <span>макет модуля · оплата не списывается</span>
+        </div>
+        <div class="bnovo-steps" id="bnovo-steps">
+          <div class="bnovo-step is-active" data-step="rooms">1. Номер</div>
+          <div class="bnovo-step" data-step="guest">2. Гость</div>
+          <div class="bnovo-step" data-step="pay">3. Оплата</div>
+        </div>
+        <form class="bnovo-search" id="bnovo-search-form">
+          <div class="bnovo-field">
+            <label for="bnovo-checkin">Заезд</label>
+            <input type="date" id="bnovo-checkin" required>
+          </div>
+          <div class="bnovo-field">
+            <label for="bnovo-checkout">Выезд</label>
+            <input type="date" id="bnovo-checkout" required>
+          </div>
+          <div class="bnovo-field">
+            <label for="bnovo-guests">Гости</label>
+            <select id="bnovo-guests">
+              <option value="1">1 взрослый</option>
+              <option value="2" selected>2 взрослых</option>
+              <option value="3">3 взрослых</option>
+              <option value="4">4 взрослых</option>
+            </select>
+          </div>
+          <button type="submit" class="bnovo-search-submit">Показать наличие</button>
+        </form>
+        <div class="bnovo-rooms" id="bnovo-rooms"></div>
+        <div class="bnovo-panel" id="bnovo-guest" hidden>
+          <h3 id="bnovo-guest-title">Данные гостя</h3>
+          <p class="bnovo-room-meta" id="bnovo-guest-meta"></p>
+          <div class="bnovo-form-grid">
+            <div class="bnovo-field">
+              <label for="bnovo-name">Имя и фамилия</label>
+              <input id="bnovo-name" type="text" placeholder="Иван Иванов" autocomplete="name">
+            </div>
+            <div class="bnovo-field">
+              <label for="bnovo-phone">Телефон</label>
+              <input id="bnovo-phone" type="tel" placeholder="+7 900 000-00-00" autocomplete="tel">
+            </div>
+            <div class="bnovo-field wide">
+              <label for="bnovo-email">E-mail</label>
+              <input id="bnovo-email" type="email" placeholder="mail@example.com" autocomplete="email">
+            </div>
+          </div>
+          <div class="bnovo-actions">
+            <button type="button" class="bnovo-back" id="bnovo-back-rooms">К выбору номера</button>
+            <button type="button" class="bnovo-next" id="bnovo-to-pay">К оплате</button>
+          </div>
+        </div>
+        <div class="bnovo-panel" id="bnovo-pay" hidden>
+          <h3>Оплата брони</h3>
+          <p class="bnovo-room-meta" id="bnovo-pay-meta"></p>
+          <div class="bnovo-pay-methods">
+            <label class="bnovo-pay-method"><input type="radio" name="bnovo-pay" value="card" checked> Банковская карта</label>
+            <label class="bnovo-pay-method"><input type="radio" name="bnovo-pay" value="sbp"> СБП</label>
+            <label class="bnovo-pay-method"><input type="radio" name="bnovo-pay" value="later"> Оплата на месте</label>
+          </div>
+          <div class="bnovo-actions">
+            <button type="button" class="bnovo-back" id="bnovo-back-guest">Назад</button>
+            <button type="button" class="bnovo-pay" id="bnovo-confirm">Оплатить</button>
+          </div>
+        </div>
+        <div class="bnovo-panel bnovo-done" id="bnovo-done" hidden>
+          <strong>Бронь принята — это макет</strong>
+          <p>На живом сайте здесь появится номер брони и письмо гостю. Оплата в прототипе не проходит.</p>
+          <button type="button" class="bnovo-next" id="bnovo-reset">Новый поиск</button>
+        </div>
       </div>
-      <div class="booking-results" id="booking-results" hidden></div>
     </div>
   </section>
 
@@ -2709,8 +3056,6 @@
       const guestsField = document.getElementById('guests-field');
       const adultsEl = document.getElementById('adults-count');
       const childrenEl = document.getElementById('children-count');
-      const summary = document.getElementById('booking-summary');
-      const results = document.getElementById('booking-results');
       if (!form || !checkin || !checkout) return;
 
       const guests = { adults: 2, children: 0 };
@@ -2725,18 +3070,6 @@
         const next = new Date(date);
         next.setDate(next.getDate() + days);
         return next;
-      }
-
-      function formatRu(iso) {
-        if (!iso) return '—';
-        const [y, m, d] = iso.split('-');
-        return d + '.' + m + '.' + y;
-      }
-
-      function nightsBetween(a, b) {
-        const start = new Date(a + 'T00:00:00');
-        const end = new Date(b + 'T00:00:00');
-        return Math.max(1, Math.round((end - start) / 86400000));
       }
 
       function guestsLabel() {
@@ -2791,29 +3124,141 @@
         guestsBtn.setAttribute('aria-expanded', 'false');
       });
 
-      const mockRooms = [
-        { name: 'Двухместный стандарт №15', meta: '2 гостя · душ · общая кухня', price: 'от 2 900 ₽' },
-        { name: 'Комфорт с террасой №24', meta: 'терраса · кухня · Smart TV', price: 'от 3 500 ₽' },
-        { name: 'Комфорт big size №13', meta: '53 м² · 2 комнаты · терраса', price: 'от 6 500 ₽' }
-      ];
-
       form.addEventListener('submit', e => {
         e.preventDefault();
         guestsPanel.classList.remove('open');
-        const nights = nightsBetween(checkin.value, checkout.value);
-        summary.innerHTML =
-          '<strong>Макет модуля Бnovo</strong><br><br>' +
-          'Заезд ' + formatRu(checkin.value) + ' · выезд ' + formatRu(checkout.value) +
-          ' · ' + nights + ' ноч. · ' + guestsLabel() +
-          '<p class="booking-note">На готовом сайте здесь откроется живой модуль Бnovo с наличием и оплатой. Это показ логики для согласования.</p>';
-        results.hidden = false;
-        results.innerHTML = mockRooms.map(room =>
-          '<div class="booking-result"><div><strong>' + room.name + '</strong><span>' + room.meta + '</span></div><em>' + room.price + '</em></div>'
-        ).join('');
+        const widgetIn = document.getElementById('bnovo-checkin');
+        const widgetOut = document.getElementById('bnovo-checkout');
+        const widgetGuests = document.getElementById('bnovo-guests');
+        if (widgetIn) widgetIn.value = checkin.value;
+        if (widgetOut) widgetOut.value = checkout.value;
+        if (widgetGuests) widgetGuests.value = String(Math.min(4, guests.adults));
+        if (typeof window.renderBnovoRooms === 'function') window.renderBnovoRooms();
         document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
       });
 
       renderGuests();
+    })();
+
+    (function initBnovoMock() {
+      const checkin = document.getElementById('bnovo-checkin');
+      const checkout = document.getElementById('bnovo-checkout');
+      const guestsEl = document.getElementById('bnovo-guests');
+      const form = document.getElementById('bnovo-search-form');
+      const roomsEl = document.getElementById('bnovo-rooms');
+      const guestEl = document.getElementById('bnovo-guest');
+      const payEl = document.getElementById('bnovo-pay');
+      const doneEl = document.getElementById('bnovo-done');
+      const steps = document.querySelectorAll('#bnovo-steps .bnovo-step');
+      if (!checkin || !checkout || !form || !roomsEl) return;
+
+      const catalog = [
+        { name: 'Одноместный стандарт', photo: 'assets/room-single.jpg', meta: '1–2 гостя · душ · общая кухня', night: 2900 },
+        { name: 'Двухместный стандарт', photo: 'assets/room-double-standard.jpg', meta: '2 гостя · двуспальная · душ', night: 2900 },
+        { name: 'Комфорт с террасой', photo: 'assets/room-comfort-24.jpg', meta: '2 гостя · терраса · кухня', night: 3500 },
+        { name: 'Комфорт big size', photo: 'assets/room-family.jpg', meta: 'семья · 53 м² · 2 комнаты', night: 6500 }
+      ];
+
+      let selected = null;
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+      function toISO(date) {
+        return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+      }
+      function addDays(date, days) {
+        const next = new Date(date);
+        next.setDate(next.getDate() + days);
+        return next;
+      }
+      function formatRu(iso) {
+        if (!iso) return '—';
+        const [y, m, d] = iso.split('-');
+        return d + '.' + m + '.' + y;
+      }
+      function nightsBetween(a, b) {
+        const start = new Date(a + 'T00:00:00');
+        const end = new Date(b + 'T00:00:00');
+        return Math.max(1, Math.round((end - start) / 86400000));
+      }
+      function money(n) {
+        return n.toLocaleString('ru-RU') + ' ₽';
+      }
+      function stayLabel() {
+        const nights = nightsBetween(checkin.value, checkout.value);
+        return formatRu(checkin.value) + ' — ' + formatRu(checkout.value) + ' · ' + nights + ' ноч. · ' + guestsEl.options[guestsEl.selectedIndex].text;
+      }
+      function setStep(name) {
+        steps.forEach(step => step.classList.toggle('is-active', step.dataset.step === name));
+        roomsEl.hidden = name !== 'rooms';
+        form.style.display = name === 'rooms' ? '' : 'none';
+        guestEl.hidden = name !== 'guest';
+        payEl.hidden = name !== 'pay';
+        doneEl.hidden = name !== 'done';
+        if (name === 'done') {
+          steps.forEach(step => step.classList.toggle('is-active', step.dataset.step === 'pay'));
+        }
+      }
+
+      function renderRooms() {
+        const nights = nightsBetween(checkin.value, checkout.value);
+        roomsEl.innerHTML = catalog.map((room, index) =>
+          '<article class="bnovo-room">' +
+            '<img src="' + room.photo + '" alt="' + room.name + '">' +
+            '<div><h3>' + room.name + '</h3><p>' + room.meta + '</p><p>свободно</p></div>' +
+            '<div class="bnovo-room-price"><strong>' + money(room.night * nights) + '</strong><span>' + money(room.night) + ' / ночь</span><button type="button" data-room="' + index + '">Выбрать</button></div>' +
+          '</article>'
+        ).join('');
+        setStep('rooms');
+      }
+
+      window.renderBnovoRooms = renderRooms;
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (!checkin.value) {
+        checkin.value = toISO(addDays(today, 1));
+        checkout.value = toISO(addDays(today, 2));
+      }
+      checkin.min = toISO(today);
+      checkout.min = checkout.value;
+
+      checkin.addEventListener('change', () => {
+        const minOut = toISO(addDays(new Date(checkin.value + 'T00:00:00'), 1));
+        checkout.min = minOut;
+        if (checkout.value <= checkin.value) checkout.value = minOut;
+      });
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        renderRooms();
+      });
+
+      roomsEl.addEventListener('click', e => {
+        const btn = e.target.closest('button[data-room]');
+        if (!btn) return;
+        selected = catalog[Number(btn.dataset.room)];
+        const nights = nightsBetween(checkin.value, checkout.value);
+        document.getElementById('bnovo-guest-title').textContent = selected.name;
+        document.getElementById('bnovo-guest-meta').textContent = stayLabel() + ' · ' + money(selected.night * nights);
+        setStep('guest');
+      });
+
+      document.getElementById('bnovo-to-pay').addEventListener('click', () => {
+        if (!selected) return;
+        const nights = nightsBetween(checkin.value, checkout.value);
+        document.getElementById('bnovo-pay-meta').textContent = selected.name + ' · ' + stayLabel() + ' · к оплате ' + money(selected.night * nights);
+        setStep('pay');
+      });
+
+      document.getElementById('bnovo-back-rooms').addEventListener('click', () => setStep('rooms'));
+      document.getElementById('bnovo-back-guest').addEventListener('click', () => setStep('guest'));
+      document.getElementById('bnovo-confirm').addEventListener('click', () => setStep('done'));
+      document.getElementById('bnovo-reset').addEventListener('click', () => {
+        selected = null;
+        renderRooms();
+      });
+
+      renderRooms();
     })();
 
     document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
