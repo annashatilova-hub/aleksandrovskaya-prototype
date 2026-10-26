@@ -1547,14 +1547,15 @@
       background: var(--brand-light);
       border-radius: 8px;
       height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--brand);
-      font-size: 14px;
-      border: 2px dashed var(--brand);
-      text-align: center;
-      padding: 24px;
+      overflow: hidden;
+      border: 1px solid #d5e3e3;
+    }
+
+    .map-placeholder iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
     }
 
     /* Booking */
@@ -1592,6 +1593,7 @@
       background: #fff;
       color: #242742;
       border-radius: 8px;
+      width: 100%;
       max-width: 880px;
       margin: 8px auto 0;
       text-align: left;
@@ -1640,11 +1642,15 @@
 
     .bnovo-search {
       display: grid;
-      grid-template-columns: 1fr 1fr 1.1fr auto;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.1fr) auto;
       gap: 10px;
       padding: 16px;
       border-bottom: 1px solid #eef0f3;
       align-items: end;
+    }
+
+    .bnovo-field {
+      min-width: 0;
     }
 
     .bnovo-field label {
@@ -1657,6 +1663,8 @@
     .bnovo-field input,
     .bnovo-field select {
       width: 100%;
+      max-width: 100%;
+      min-width: 0;
       height: 40px;
       border: 1px solid #c6cad3;
       border-radius: 6px;
@@ -1665,6 +1673,10 @@
       font-size: 14px;
       color: #242742;
       background: #fff;
+    }
+
+    .bnovo-field input[type="date"] {
+      padding-right: 6px;
     }
 
     .bnovo-search-submit {
@@ -1977,7 +1989,7 @@
       color: var(--brand);
     }
 
-    @media (max-width: 1100px) {
+    @media (min-width: 769px) and (max-width: 1100px) {
       .booking-bar,
       #hero-booking-form {
         display: grid;
@@ -2047,7 +2059,7 @@
       .hero-booking-wrap,
       .booking-bar,
       #hero-booking-form {
-        display: none;
+        display: none !important;
       }
       /* Мобильные кропы: положить *-mobile.jpg и задать --tile-photo-mobile. Пока тот же файл. */
       .hero-tile.main,
@@ -2061,8 +2073,13 @@
         background-image: var(--tile-photo-mobile, var(--tile-photo));
       }
       .footer-inner { grid-template-columns: 1fr; gap: 24px; }
-      .bnovo-search { grid-template-columns: 1fr 1fr; }
-      .bnovo-search-submit { grid-column: 1 / -1; width: 100%; }
+      .bnovo-search {
+        grid-template-columns: 1fr;
+      }
+      .bnovo-search-submit {
+        grid-column: 1;
+        width: 100%;
+      }
       .bnovo-room { grid-template-columns: 1fr; }
       .bnovo-room img { width: 100%; height: 160px; }
       .bnovo-room-price { text-align: left; }
@@ -2074,7 +2091,7 @@
       .bnovo-back { margin: 0; text-align: left; }
     }
 
-    @media (max-width: 560px) {
+    @media (min-width: 769px) and (max-width: 560px) {
       .booking-bar,
       #hero-booking-form {
         grid-template-columns: 1fr;
@@ -2090,6 +2107,14 @@
     @media (max-width: 1024px) {
       .hero-grid { grid-template-columns: 1fr; }
       .hero-bento { grid-template-rows: 180px 180px; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-booking-wrap,
+      .booking-bar,
+      #hero-booking-form {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -2111,9 +2136,9 @@
             <a href="#news">Новости</a>
           </div>
         </div>
+        <a href="#services">Услуги</a>
         <a href="#rooms">Проживание</a>
         <a href="#promo">Спецпредложения</a>
-        <a href="#services">Услуги</a>
         <a href="#route">Как добраться</a>
         <a href="#contacts">Контакты</a>
         <a href="#booking" class="btn">Забронировать</a>
@@ -2234,6 +2259,64 @@
         </div>
         <p>Для тех, кто любит готовить сам, есть уютная кухня-столовая — просторное и светлое помещение со всей необходимой техникой и посудой. Здесь удобно накрыть семейный обед, приготовить что-то своё или просто собраться компанией за чашкой чая. Пусть отдых будет удобным и по-домашнему тёплым!</p>
         <p>Всего в 40 минутах езды находится прекрасный город Выборг. Проведите день, гуляя по его старинным улочкам, изучая средневековую архитектуру и наслаждаясь видами, а вечером возвращайтесь к нам — в тишину леса, к теплу бани и умиротворяющему покою природы. Наши цены приятно удивят, а искреннее гостеприимство сделает ваш отдых по-настоящему душевным.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="alt">
+    <div class="container">
+      <div class="section-label">Галерея</div>
+      <h2>Узнайте базу ближе: интерьеры, виды и атмосфера</h2>
+      <div class="gallery-bento">
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-territory.jpg')"><span class="photo-mark ready">Ф16 · есть</span><span class="gallery-tile-label">территория</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-lake.jpg')"><span class="photo-mark ready">Ф17 · есть</span><span class="gallery-tile-label">озеро</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-rooms.jpg')"><span class="photo-mark ready">Ф18 · есть</span><span class="gallery-tile-label">номера</span></div>
+        <div class="gallery-tile tall has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-interior.jpg?v=sunroom')"><span class="photo-mark ready">Ф19 · есть</span><span class="gallery-tile-label">панорамная веранда</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-sauna.jpg')"><span class="photo-mark ready">Ф20 · есть</span><span class="gallery-tile-label">баня и сауна</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-sup.jpg')"><span class="photo-mark ready">Ф21 · есть</span><span class="gallery-tile-label">лаунж-зона с очагом</span></div>
+        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-nature.jpg')"><span class="photo-mark ready">Ф22 · есть</span><span class="gallery-tile-label">отдых на природе</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-label">Услуги</div>
+      <h2>Чем заняться на территории</h2>
+
+      <div class="services-stack">
+      <div id="service-detail" class="service-feature" aria-live="polite"></div>
+
+      <div class="services-grid" id="services-grid">
+        <div class="service-item active" data-service="banya" role="button" tabindex="0">
+          <div class="service-icon">♨</div>
+          <div class="service-item-text">
+            <h3>Русская баня</h3>
+            <p>2 часа: 3 500 ₽ будни / 3 900 ₽ выходные</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="sauna" role="button" tabindex="0">
+          <div class="service-icon">💧</div>
+          <div class="service-item-text">
+            <h3>Сауна</h3>
+            <p>от 3 000 ₽ / 2 часа · далее 1 200 ₽/час</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="sup" role="button" tabindex="0">
+          <div class="service-icon">🏄</div>
+          <div class="service-item-text">
+            <h3>Сап-борды и лодки</h3>
+            <p>Сап от 500 ₽/час · лодка от 400 ₽/час</p>
+          </div>
+        </div>
+        <div class="service-item" data-service="playground" role="button" tabindex="0">
+          <div class="service-icon">🧒</div>
+          <div class="service-item-text">
+            <h3>Детская площадка</h3>
+            <p>Безопасные игровые элементы и мягкое покрытие</p>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   </section>
@@ -2496,64 +2579,6 @@
     </div>
   </section>
 
-  <section id="services">
-    <div class="container">
-      <div class="section-label">Услуги</div>
-      <h2>Чем заняться на территории</h2>
-
-      <div class="services-stack">
-      <div id="service-detail" class="service-feature" aria-live="polite"></div>
-
-      <div class="services-grid" id="services-grid">
-        <div class="service-item active" data-service="banya" role="button" tabindex="0">
-          <div class="service-icon">♨</div>
-          <div class="service-item-text">
-            <h3>Русская баня</h3>
-            <p>2 часа: 3 500 ₽ будни / 3 900 ₽ выходные</p>
-          </div>
-        </div>
-        <div class="service-item" data-service="sauna" role="button" tabindex="0">
-          <div class="service-icon">💧</div>
-          <div class="service-item-text">
-            <h3>Сауна</h3>
-            <p>от 3 000 ₽ / 2 часа · далее 1 200 ₽/час</p>
-          </div>
-        </div>
-        <div class="service-item" data-service="sup" role="button" tabindex="0">
-          <div class="service-icon">🏄</div>
-          <div class="service-item-text">
-            <h3>Сап-борды и лодки</h3>
-            <p>Сап от 500 ₽/час · лодка от 400 ₽/час</p>
-          </div>
-        </div>
-        <div class="service-item" data-service="playground" role="button" tabindex="0">
-          <div class="service-icon">🧒</div>
-          <div class="service-item-text">
-            <h3>Детская площадка</h3>
-            <p>Безопасные игровые элементы и мягкое покрытие</p>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="gallery">
-    <div class="container">
-      <div class="section-label">Галерея</div>
-      <h2>Узнайте базу ближе: интерьеры, виды и атмосфера</h2>
-      <div class="gallery-bento">
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-territory.jpg')"><span class="photo-mark ready">Ф16 · есть</span><span class="gallery-tile-label">территория</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-lake.jpg')"><span class="photo-mark ready">Ф17 · есть</span><span class="gallery-tile-label">озеро</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-rooms.jpg')"><span class="photo-mark ready">Ф18 · есть</span><span class="gallery-tile-label">номера</span></div>
-        <div class="gallery-tile tall has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-interior.jpg?v=sunroom')"><span class="photo-mark ready">Ф19 · есть</span><span class="gallery-tile-label">панорамная веранда</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-sauna.jpg')"><span class="photo-mark ready">Ф20 · есть</span><span class="gallery-tile-label">баня и сауна</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-sup.jpg')"><span class="photo-mark ready">Ф21 · есть</span><span class="gallery-tile-label">лаунж-зона с очагом</span></div>
-        <div class="gallery-tile has-photo" title="Перейти в галерею" style="--tile-photo:url('assets/gallery-nature.jpg')"><span class="photo-mark ready">Ф22 · есть</span><span class="gallery-tile-label">отдых на природе</span></div>
-      </div>
-    </div>
-  </section>
-
   <section id="reviews" class="alt">
     <div class="container">
       <div class="section-label">О нас</div>
@@ -2637,8 +2662,7 @@
           <div class="route-text" id="route-text" aria-live="polite"></div>
         </div>
         <div class="map-placeholder">
-          Здесь будет интерактивная карта Яндекс / Google<br><br>
-          Координаты: 60.38, 28.99
+          <iframe title="База отдыха Александровская на Яндекс Картах" src="https://yandex.ru/map-widget/v1/?ll=28.99%2C60.38&amp;z=14&amp;pt=28.99,60.38,pm2rdm&amp;l=map" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
@@ -2787,7 +2811,7 @@
           </div>
         </div>
         <div class="map-placeholder" style="height:260px">
-          Карта с меткой базы
+          <iframe title="База отдыха Александровская на Яндекс Картах" src="https://yandex.ru/map-widget/v1/?ll=28.99%2C60.38&amp;z=14&amp;pt=28.99,60.38,pm2rdm&amp;l=map" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
