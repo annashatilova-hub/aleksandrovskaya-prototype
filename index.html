@@ -894,9 +894,14 @@
     /* Rooms */
     .rooms-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 32px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
       margin-top: 8px;
+    }
+
+    a.room-card {
+      text-decoration: none;
+      color: inherit;
     }
 
     .room-card {
@@ -908,14 +913,17 @@
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid #e8e8e8;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .room-card:hover { transform: translateY(-4px); }
+    .room-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    }
 
     .room-card img {
       width: 100%;
-      height: 220px;
+      height: 168px;
       object-fit: cover;
       display: block;
     }
@@ -924,49 +932,56 @@
       display: flex;
       flex-direction: column;
       flex: 1;
-      padding: 24px;
+      padding: 14px 16px 16px;
     }
 
     .room-card h3 {
-      font-size: 18px;
+      order: 1;
+      font-size: 15px;
       font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .room-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .room-card p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
+      margin-bottom: 4px;
+      line-height: 1.3;
     }
 
     .room-price {
-      font-size: 20px;
+      order: 2;
+      font-size: 16px;
       font-weight: 700;
       color: var(--brand);
-      margin-top: auto;
-      margin-bottom: 16px;
+      margin: 0 0 8px;
     }
 
     .room-price span {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 400;
       color: var(--text-muted);
     }
 
-    .room-tags {
+    .room-meta {
+      order: 3;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 4px 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .room-card p {
+      order: 4;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text-muted);
+      margin-bottom: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .room-tags,
+    .room-card .btn {
+      display: none;
     }
 
     .room-tag {
@@ -983,6 +998,15 @@
       margin-top: 12px;
       padding-top: 12px;
       border-top: 1px solid #eee;
+    }
+
+    @media (max-width: 1100px) {
+      .rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .rooms-grid { grid-template-columns: 1fr; }
+      .room-card img { height: 200px; }
     }
 
     .tilda-hint {
@@ -2327,7 +2351,7 @@
       <h2>Номера и апартаменты</h2>
       <p class="section-intro">18 номеров: одноместные и двухместные стандарты, комфорт с террасой, двухкомнатные и семейные апартаменты. С животными — доплата 1 000 ₽ за весь период, доп. кровать — 600 ₽/сутки.</p>
       <div class="rooms-grid">
-        <article class="room-card">
+        <a class="room-card" href="#booking">
           <span class="photo-mark ready">Ф8 · есть</span>
           <img src="assets/room-single.jpg" alt="Одноместный стандарт">
           <div class="room-card-body">
@@ -2342,10 +2366,9 @@
               <span class="room-tag">Микроволновка</span>
             </div>
             <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
-        </article>
-        <article class="room-card">
+        </a>
+        <a class="room-card" href="#booking">
           <span class="photo-mark ready">Ф9 · есть</span>
           <img src="assets/room-double-standard.jpg" alt="Двухместный стандарт">
           <div class="room-card-body">
@@ -2360,10 +2383,9 @@
               <span class="room-tag">Чайник</span>
             </div>
             <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
-        </article>
-        <article class="room-card">
+        </a>
+        <a class="room-card" href="#booking">
           <span class="photo-mark ready">Ф10 · есть</span>
           <img src="assets/room-quad.jpg" alt="Двухместный стандарт на 4 гостей">
           <div class="room-card-body">
@@ -2377,10 +2399,9 @@
               <span class="room-tag">Чайник</span>
             </div>
             <div class="room-price">при бронировании</div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
-        </article>
-        <article class="room-card">
+        </a>
+        <a class="room-card" href="#booking">
           <span class="photo-mark ready">Ф11 · есть</span>
           <img src="assets/room-triple.jpg" alt="Трёхместный стандарт">
           <div class="room-card-body">
@@ -2395,10 +2416,9 @@
               <span class="room-tag">Чайник</span>
             </div>
             <div class="room-price">при бронировании</div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
-        </article>
-        <article class="room-card">
+        </a>
+        <a class="room-card" href="#booking">
           <span class="photo-mark ready">Ф12 · есть</span>
           <img src="assets/room-twin-33.jpg" alt="Двухместный стандарт с двумя кроватями">
           <div class="room-card-body">
@@ -2412,16 +2432,15 @@
               <span class="room-tag">Чайник</span>
             </div>
             <div class="room-price">от 2 900 ₽ <span>/ ночь</span></div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
-        </article>
-        <article class="room-card">
+        </a>
+        <a class="room-card" href="#booking">
           <span class="photo-mark ready">Ф13 · есть</span>
           <img src="assets/room-comfort-24.jpg" alt="Двухместный комфорт с террасой">
           <div class="room-card-body">
             <h3>Комфорт с террасой</h3>
             <div class="room-meta"><span>2 гостя</span><span>№ 24, 25, 34, 35</span></div>
-            <p>Комфортный и уютный двухместный номер с выходом на террасу. Встроенная кухня, телевизор 43" с Smart TV и собственный выход к панорамной террасе (терраса на два номера). В № 35 — две полутораспальные кровати, в № 24, 25, 34 — одна двуспальная.</p>
+            <p>Двухместный номер с террасой, кухней и Smart TV. В № 35 — две полутораспальные кровати.</p>
             <div class="room-tags">
               <span class="room-tag">Терраса</span>
               <span class="room-tag">Smart TV</span>
@@ -2429,10 +2448,9 @@
               <span class="room-tag">Душ</span>
             </div>
             <div class="room-price">от 3 500 ₽ <span>/ ночь</span></div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
-        </article>
-        <article class="room-card">
+        </a>
+        <a class="room-card" href="#booking">
           <span class="photo-mark ready">Ф14 · есть</span>
           <img src="assets/room-tworoom.jpg" alt="Двухкомнатный комфорт">
           <div class="room-card-body">
@@ -2447,16 +2465,15 @@
               <span class="room-tag">Душ</span>
             </div>
             <div class="room-price">от 5 000 ₽ <span>/ ночь</span></div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
-        </article>
-        <article class="room-card">
+        </a>
+        <a class="room-card" href="#booking">
           <span class="photo-mark ready">Ф15 · есть</span>
           <img src="assets/room-family.jpg" alt="Двухкомнатный комфорт big size">
           <div class="room-card-body">
             <h3>Комфорт big size</h3>
             <div class="room-meta"><span>семья / компания</span><span>53 м²</span><span>№ 13</span></div>
-            <p>Комфортный двухкомнатный номер big size: одна комната с двумя большими двуспальными кроватями, вторая с раскладным диваном и кухней (53 кв. м). Отдельный выход на панорамную террасу — смежная с общей кухней, в ней досуговый уголок: настольный футбол, игрушки для детей, стол, диван и кресла.</p>
+            <p>Двухкомнатный 53 м²: две двуспальные кровати, диван, кухня и выход на террасу.</p>
             <div class="room-tags">
               <span class="room-tag">53 м²</span>
               <span class="room-tag">Терраса</span>
@@ -2464,9 +2481,8 @@
               <span class="room-tag">Smart TV</span>
             </div>
             <div class="room-price">от 6 500 ₽ <span>/ ночь</span></div>
-            <a href="#booking" class="btn btn-outline">Забронировать</a>
           </div>
-        </article>
+        </a>
       </div>
     </div>
   </section>
@@ -2662,7 +2678,7 @@
           <div class="route-text" id="route-text" aria-live="polite"></div>
         </div>
         <div class="map-placeholder">
-          <iframe title="База отдыха Александровская на Яндекс Картах" src="https://yandex.ru/map-widget/v1/?ll=28.99%2C60.38&amp;z=14&amp;pt=28.99,60.38,pm2rdm&amp;l=map" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe title="База отдыха Александровская на Яндекс Картах" src="https://yandex.ru/map-widget/v1/?ll=28.996621%2C60.390854&amp;z=16&amp;mode=search&amp;text=%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%2C%20%D0%B1%D0%B0%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B4%D1%8B%D1%85%D0%B0%2C%20%D0%9C%D0%B0%D0%BC%D0%BE%D0%BD%D1%82%D0%BE%D0%B2%D0%BA%D0%B0%2C%20%D0%9A%D0%BE%D0%BC%D0%BF%D1%80%D0%B5%D1%81%D1%81%D0%BE%D1%80%D0%BD%D0%B0%D1%8F%2028%D0%90" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
@@ -2811,7 +2827,7 @@
           </div>
         </div>
         <div class="map-placeholder" style="height:260px">
-          <iframe title="База отдыха Александровская на Яндекс Картах" src="https://yandex.ru/map-widget/v1/?ll=28.99%2C60.38&amp;z=14&amp;pt=28.99,60.38,pm2rdm&amp;l=map" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe title="База отдыха Александровская на Яндекс Картах" src="https://yandex.ru/map-widget/v1/?ll=28.996621%2C60.390854&amp;z=16&amp;mode=search&amp;text=%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%2C%20%D0%B1%D0%B0%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B4%D1%8B%D1%85%D0%B0%2C%20%D0%9C%D0%B0%D0%BC%D0%BE%D0%BD%D1%82%D0%BE%D0%B2%D0%BA%D0%B0%2C%20%D0%9A%D0%BE%D0%BC%D0%BF%D1%80%D0%B5%D1%81%D1%81%D0%BE%D1%80%D0%BD%D0%B0%D1%8F%2028%D0%90" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
